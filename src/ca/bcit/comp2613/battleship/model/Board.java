@@ -7,24 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 @Entity
-public class Board extends JFrame{
+public class Board extends JPanel{
     
     @Id
     private static final long serialVersionUID = 1L;
     //variable that will have multiple ship many to many relationship
+    private JButton[][] grid;
+    private static final int WIDTH = 11;
+    private static final int LENGTH = 11;
+    
     @OneToMany
     private List < Ship > ships;
         
     
     public Board() {
-            setSize(500,500);
-            setLayout(new GridLayout(11,11));
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setVisible(true);            
-        }
+            setLayout(new GridLayout(WIDTH, LENGTH));
+            setSize(850,850);
+            createButtons();
+    }
     
     public long getBoardId() {
         return serialVersionUID;
@@ -39,11 +42,13 @@ public class Board extends JFrame{
     }    
     
     public void createButtons() {
-        //creating "blueprints" for buttons
-        JButton button[] = new JButton[121];
-        for(int i = 0; i < 122; i++){
-            button[i].setText(Integer.toString(i));
-            add(button[i]);
+        grid = new JButton[WIDTH][LENGTH];     
+        for(int i = 0; i < LENGTH; i++){
+            for(int j = 0; j < WIDTH; j++){
+                grid[i][j] = new JButton("(" + j + "," + i + ")");
+                add(grid[i][j]);
+            }
+            
         }
     }
 }
