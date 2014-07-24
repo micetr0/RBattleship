@@ -16,8 +16,8 @@ public class Board extends JPanel{
     private static final long serialVersionUID = 1L;
     //variable that will have multiple ship many to many relationship
     private JButton[][] grid;
-    private static final int WIDTH = 11;
-    private static final int LENGTH = 11;
+    public static final int WIDTH = 11;
+    public static final int LENGTH = 11;
     
     @OneToMany
     private List < Ship > ships;
