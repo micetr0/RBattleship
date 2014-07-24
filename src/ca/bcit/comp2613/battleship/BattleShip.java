@@ -19,7 +19,7 @@ public class BattleShip {
       JPanel ctrlPanel = new JPanel();
       ctrlPanel.setSize(850, 150);
       JFrame f = new JFrame("test");
-      f.setSize(850, 1000);
+      f.setSize(850, 500);
       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.setVisible(true);
       f.add(setup);
