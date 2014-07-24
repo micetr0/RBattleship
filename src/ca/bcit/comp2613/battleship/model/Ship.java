@@ -9,10 +9,11 @@ public class Ship {
     
     @Id
     public String id;
-    private Integer positionX;
-    private Integer positionY;
+    private Integer positionX1;
+    private Integer positionX2;
+    private Integer positionY1;
+    private Integer positionY2;
     private Integer endurance;
-    public ShipType shipType;
     @ManyToOne
     private Board board;
     
@@ -20,13 +21,14 @@ public class Ship {
     public Ship() {}
 
 //generated using constructor
-    public Ship(String id, Integer positionX, Integer positionY, Integer endurance, ShipType shipType) {
+    public Ship(String id, Integer positionX1, Integer positionY1, Integer positionX2, Integer positionY2, Integer endurance) {
         super();
         this.id = id;
-        this.positionX = positionX;
-        this.positionY = positionY;
+        this.positionX1 = positionX1;
+        this.positionX2 = positionX2;
+        this.positionY1 = positionY1;
+        this.positionY2 = positionY2;
         this.endurance = endurance;
-        this.shipType = shipType; 
     }
 
 
@@ -39,26 +41,39 @@ public class Ship {
         this.id = id;
     }
 
+    public Integer getPositionX1() {
+		return positionX1;
+	}
 
-    public Integer getPositionX() {
-        return positionX;
-    }
+	public void setPositionX1(Integer positionX1) {
+		this.positionX1 = positionX1;
+	}
 
+	public Integer getPositionX2() {
+		return positionX2;
+	}
 
-    public void setPositionX(Integer positionX) {
-        this.positionX = positionX;
-    }
+	public void setPositionX2(Integer positionX2) {
+		this.positionX2 = positionX2;
+	}
 
-    public Integer getPositionY() {
-        return positionY;
-    }
+	public Integer getPositionY1() {
+		return positionY1;
+	}
 
-    public void setPositionY(Integer positionY) {
-        this.positionY = positionY;
-    }
+	public void setPositionY1(Integer positionY1) {
+		this.positionY1 = positionY1;
+	}
 
+	public Integer getPositionY2() {
+		return positionY2;
+	}
 
-    public Integer getEndurance() {
+	public void setPositionY2(Integer positionY2) {
+		this.positionY2 = positionY2;
+	}
+
+	public Integer getEndurance() {
         return endurance;
     }
 
@@ -66,21 +81,12 @@ public class Ship {
     public void setEndurance(Integer endurance) {
         this.endurance = endurance;
     }
-    
-    public ShipType getShipType() {
-        return shipType;
-    }
-    
-    public void setShipType(ShipType shipType) {
-        this.shipType = shipType;
-        
-    }
 
     @Override
     public String toString() {
         // TODO Auto-generated method stub
         //removed endurance
-        return "ship id: " + id + " position x: " + positionX +  " position y: " + positionY + " ship type: " + shipType + " Endurance: " + endurance;
+        return "ship id: " + id + " position x1: " + positionX1 +  " position y1: " + positionY1 + " Endurance: " + endurance;
               
     }
 
