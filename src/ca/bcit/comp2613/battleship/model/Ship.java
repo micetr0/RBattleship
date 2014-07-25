@@ -1,5 +1,7 @@
 package ca.bcit.comp2613.battleship.model;
 
+import java.util.Random;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -16,14 +18,14 @@ public class Ship {
     private Integer endurance;
     @ManyToOne
     private Board board;
+    Random rand = new Random();
     
     //not required because its build-in
     public Ship() {}
 
 //generated using constructor
-    public Ship(String id, Integer positionX1, Integer positionY1, Integer positionX2, Integer positionY2, Integer endurance) {
-        super();
-        this.id = id;
+    public Ship(Integer positionX1, Integer positionY1, Integer positionX2, Integer positionY2, Integer endurance) {
+        id = Integer.toString(rand.nextInt(100));
         this.positionX1 = positionX1;
         this.positionX2 = positionX2;
         this.positionY1 = positionY1;

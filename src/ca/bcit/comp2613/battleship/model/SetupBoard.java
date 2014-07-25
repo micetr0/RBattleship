@@ -2,6 +2,8 @@ package ca.bcit.comp2613.battleship.model;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,6 +25,9 @@ public class SetupBoard extends JPanel {
     
     public static final int WIDTH = 11;
     public static final int LENGTH = 11;
+    
+    private Coordinates theShipCoord;
+    private int shipTypeTab;
     
     public SetupBoard() {
         //setSize(850, 1000);
@@ -46,10 +51,10 @@ public class SetupBoard extends JPanel {
     
     public void createTabbedPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
-        JComponent destroyer = makeTextPanel("Destroyer");
-        JComponent submarine = makeTextPanel("Submarine");
-        JComponent battleship = makeTextPanel("Battleship");
-        JComponent carrier = makeTextPanel("Carrier");        
+        JComponent destroyer = makeShipPanel("Destroyer");
+        JComponent submarine = makeShipPanel("Submarine");
+        JComponent battleship = makeShipPanel("Battleship");
+        JComponent carrier = makeShipPanel("Carrier");        
         
         tabbedPane.addTab("Destroyer", destroyer);
         tabbedPane.addTab("Submarine", submarine);
@@ -59,7 +64,7 @@ public class SetupBoard extends JPanel {
         shipPane.add(tabbedPane);
     }
     
-    protected JComponent makeTextPanel(String textString) {
+    protected JComponent makeShipPanel(String textString) {
         String typeOfShip = textString;
         JPanel panel = new JPanel(false);
         JLabel label = new JLabel(textString);
@@ -93,12 +98,44 @@ public class SetupBoard extends JPanel {
         return panel;
     }
     
+    public JPanel createShipObjects(String shipType) {
+        if(shipType.equals("Destroyer")){
+            JPanel threePanel = new JPanel(new FlowLayout());
+            
+            JButton edit = new JButton("Edit");
+            edit.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    shipTypeTab = 1;
+                }
+            });
+            //set constructor for ships
+            Destroyer playerDestroyer = new Destroyer(0, 0, 0, 0, 2);
+            
+        }
+        //create rest of ship
+    }
+    
+    public void setShipCoordinates() {
+        if (shipTypeTab == 1) {
+            //use theShipCoordinates to set ship coord
+        }
+    }
     public void createSetupButtons() {
         setupGrid = new JButton[WIDTH][LENGTH];     
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
                 setupGrid[i][j] = new JButton("(" + j + "," + i + ")");
                 gridPane.add(setupGrid[i][j]);
+                final int tempI = i;
+                final int tempJ = j;
+                setupGrid[i][j].addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        Coordinates shipCoord = new Coordinates(tempI, tempJ);
+                        theShipCoord = shipCoord;
+                        setShipCoordinates();
+                        
+                    }
+                });
             }
             
         }
