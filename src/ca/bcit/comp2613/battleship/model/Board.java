@@ -45,8 +45,8 @@ public class Board extends JPanel{
         grid = new JButton[WIDTH][LENGTH];     
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
-                grid[i][j] = new JButton("(" + j + "," + i + ")");
-                add(grid[i][j]);
+                grid[j][i] = new JButton("(" + j + "," + i + ")");
+                add(grid[j][i]);
             }
             
         }

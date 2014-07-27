@@ -22,11 +22,21 @@ public class SetupBoard extends JPanel {
     private JPanel gridPane; 
     private JPanel shipPane;
     private JButton[][] setupGrid;
+    private boolean [][] filled;
     
     public static final int WIDTH = 11;
     public static final int LENGTH = 11;
     
     private Coordinates theShipCoord;
+
+    private Coordinates destroyerShipCoordOne;
+    private Coordinates destroyerShipCoordTwo;
+    private Coordinates submarineShipCoordOne;
+    private Coordinates submarineShipCoordTwo;
+    private Coordinates battleshipShipCoordOne;
+    private Coordinates battleshipShipCoordTwo;
+    private Coordinates carrierShipCoordOne;
+    private Coordinates carrierShipCoordTwo;
     private int shipTypeTab;
     
     Destroyer playerDestroyer;
@@ -34,22 +44,22 @@ public class SetupBoard extends JPanel {
     Battleship playerBattleship;
     Carrier playerCarrier;    
     
-    private JTextField destroyerCoordXOne;
-    private JTextField destroyerCoordYOne;
-    private JTextField destroyerCoordXTwo;
-    private JTextField destroyerCoordYTwo;
-    private JTextField submarineCoordXOne;
-    private JTextField submarineCoordYOne;
-    private JTextField submarineCoordXTwo;
-    private JTextField submarineCoordYTwo;
-    private JTextField battleshipCoordXOne;
-    private JTextField battleshipCoordYOne;
-    private JTextField battleshipCoordXTwo;
-    private JTextField battleshipCoordYTwo;
-    private JTextField carrierCoordXOne;
-    private JTextField carrierCoordYOne;
-    private JTextField carrierCoordXTwo;
-    private JTextField carrierCoordYTwo;
+    private JTextField textDestroyerCoordXOne;
+    private JTextField textDestroyerCoordYOne;
+    private JTextField textDestroyerCoordXTwo;
+    private JTextField textDestroyerCoordYTwo;
+    private JTextField textSubmarineCoordXOne;
+    private JTextField textSubmarineCoordYOne;
+    private JTextField textSubmarineCoordXTwo;
+    private JTextField textSubmarineCoordYTwo;
+    private JTextField textBattleshipCoordXOne;
+    private JTextField textBattleshipCoordYOne;
+    private JTextField textBattleshipCoordXTwo;
+    private JTextField textBattleshipCoordYTwo;
+    private JTextField textCarrierCoordXOne;
+    private JTextField textCarrierCoordYOne;
+    private JTextField textCarrierCoordXTwo;
+    private JTextField textCarrierCoordYTwo;
     
     public SetupBoard() {
         //setSize(850, 1000);
@@ -91,22 +101,26 @@ public class SetupBoard extends JPanel {
         JPanel destroyerOnePanel = new JPanel(new FlowLayout());
         
         JLabel destroyerPositionOne = new JLabel("Position 1");
-        destroyerCoordXOne = new JTextField("X Coordinates");
-        destroyerCoordYOne = new JTextField("Y Coordinates");
+        textDestroyerCoordXOne = new JTextField("X Coordinates");
+        textDestroyerCoordXOne.setColumns(10);
+        textDestroyerCoordYOne = new JTextField("Y Coordinates");
+        textDestroyerCoordYOne.setColumns(10);
         
         destroyerOnePanel.add(destroyerPositionOne);
-        destroyerOnePanel.add(destroyerCoordYOne);
-        destroyerOnePanel.add(destroyerCoordXOne);
+        destroyerOnePanel.add(textDestroyerCoordXOne);
+        destroyerOnePanel.add(textDestroyerCoordYOne);
         
         JPanel destroyerTwoPanel = new JPanel(new FlowLayout());
         
         JLabel destroyerPositionTwo = new JLabel("Position 2");
-        destroyerCoordXTwo = new JTextField("X Coordinates");
-        destroyerCoordYTwo = new JTextField("Y Coordinates");
+        textDestroyerCoordXTwo = new JTextField("X Coordinates");
+        textDestroyerCoordXTwo.setColumns(10);
+        textDestroyerCoordYTwo = new JTextField("Y Coordinates");
+        textDestroyerCoordYTwo.setColumns(10);
         
         destroyerTwoPanel.add(destroyerPositionTwo);
-        destroyerTwoPanel.add(destroyerCoordYTwo);
-        destroyerTwoPanel.add(destroyerCoordXTwo);
+        destroyerTwoPanel.add(textDestroyerCoordXTwo);
+        destroyerTwoPanel.add(textDestroyerCoordYTwo);
         
         
         destroyerPanel.add(destroyerOnePanel);
@@ -125,22 +139,26 @@ public class SetupBoard extends JPanel {
         JPanel submarineOnePanel = new JPanel(new FlowLayout());
         
         JLabel submarinePositionOne = new JLabel("Position 1");
-        submarineCoordXOne = new JTextField("X Coordinates");
-        submarineCoordYOne = new JTextField("Y Coordinates");
+        textSubmarineCoordXOne = new JTextField("X Coordinates");
+        textSubmarineCoordXOne.setColumns(10);
+        textSubmarineCoordYOne = new JTextField("Y Coordinates");
+        textSubmarineCoordYOne.setColumns(10);
         
         submarineOnePanel.add(submarinePositionOne);
-        submarineOnePanel.add(submarineCoordYOne);
-        submarineOnePanel.add(submarineCoordXOne);
+        submarineOnePanel.add(textSubmarineCoordXOne);
+        submarineOnePanel.add(textSubmarineCoordYOne);
         
         JPanel submarineTwoPanel = new JPanel(new FlowLayout());
         
         JLabel submarinePositionTwo = new JLabel("Position 2");
-        submarineCoordXTwo = new JTextField("X Coordinates");
-        submarineCoordYTwo = new JTextField("Y Coordinates");
+        textSubmarineCoordXTwo = new JTextField("X Coordinates");
+        textSubmarineCoordXTwo.setColumns(10);
+        textSubmarineCoordYTwo = new JTextField("Y Coordinates");
+        textSubmarineCoordYTwo.setColumns(10);
         
         submarineTwoPanel.add(submarinePositionTwo);
-        submarineTwoPanel.add(submarineCoordYTwo);
-        submarineTwoPanel.add(submarineCoordXTwo);
+        submarineTwoPanel.add(textSubmarineCoordXTwo);
+        submarineTwoPanel.add(textSubmarineCoordYTwo);
         
         
         submarinePanel.add(submarineOnePanel);
@@ -157,22 +175,26 @@ public class SetupBoard extends JPanel {
         JPanel battleshipOnePanel = new JPanel(new FlowLayout());
         
         JLabel battleshipPositionOne = new JLabel("Position 1");
-        battleshipCoordXOne = new JTextField("X Coordinates");
-        battleshipCoordYOne = new JTextField("Y Coordinates");
+        textBattleshipCoordXOne = new JTextField("X Coordinates");
+        textBattleshipCoordXOne.setColumns(10);
+        textBattleshipCoordYOne = new JTextField("Y Coordinates");
+        textBattleshipCoordYOne.setColumns(10);
         
         battleshipOnePanel.add(battleshipPositionOne);
-        battleshipOnePanel.add(battleshipCoordYOne);
-        battleshipOnePanel.add(battleshipCoordXOne);
+        battleshipOnePanel.add(textBattleshipCoordXOne);
+        battleshipOnePanel.add(textBattleshipCoordYOne);
         
         JPanel battleshipTwoPanel = new JPanel(new FlowLayout());
         
         JLabel battleshipPositionTwo = new JLabel("Position 2");
-        battleshipCoordXTwo = new JTextField("X Coordinates");
-        battleshipCoordYTwo = new JTextField("Y Coordinates");
+        textBattleshipCoordXTwo = new JTextField("X Coordinates");
+        textBattleshipCoordXTwo.setColumns(10);
+        textBattleshipCoordYTwo = new JTextField("Y Coordinates");
+        textBattleshipCoordYTwo.setColumns(10);
         
         battleshipTwoPanel.add(battleshipPositionTwo);
-        battleshipTwoPanel.add(battleshipCoordYTwo);
-        battleshipTwoPanel.add(battleshipCoordXTwo);
+        battleshipTwoPanel.add(textBattleshipCoordXTwo);
+        battleshipTwoPanel.add(textBattleshipCoordYTwo);
         
         
         battleshipPanel.add(battleshipOnePanel);
@@ -191,22 +213,26 @@ public class SetupBoard extends JPanel {
         JPanel carrierOnePanel = new JPanel(new FlowLayout());
         
         JLabel carrierPositionOne = new JLabel("Position 1");
-        carrierCoordXOne = new JTextField("X Coordinates");
-        carrierCoordYOne = new JTextField("Y Coordinates");
+        textCarrierCoordXOne = new JTextField("X Coordinates");
+        textCarrierCoordXOne.setColumns(10);
+        textCarrierCoordYOne = new JTextField("Y Coordinates");
+        textCarrierCoordYOne.setColumns(10);
         
         carrierOnePanel.add(carrierPositionOne);
-        carrierOnePanel.add(carrierCoordYOne);
-        carrierOnePanel.add(carrierCoordXOne);
+        carrierOnePanel.add(textCarrierCoordXOne);
+        carrierOnePanel.add(textCarrierCoordYOne);
         
         JPanel carrierTwoPanel = new JPanel(new FlowLayout());
         
         JLabel carrierPositionTwo = new JLabel("Position 2");
-        carrierCoordXTwo = new JTextField("X Coordinates");
-        carrierCoordYTwo = new JTextField("Y Coordinates");
+        textCarrierCoordXTwo = new JTextField("X Coordinates");
+        textCarrierCoordXTwo.setColumns(10);
+        textCarrierCoordYTwo = new JTextField("Y Coordinates");
+        textCarrierCoordYTwo.setColumns(10);
         
         carrierTwoPanel.add(carrierPositionTwo);
-        carrierTwoPanel.add(carrierCoordYTwo);
-        carrierTwoPanel.add(carrierCoordXTwo);
+        carrierTwoPanel.add(textCarrierCoordXTwo);
+        carrierTwoPanel.add(textCarrierCoordYTwo);
         
         
         carrierPanel.add(carrierOnePanel);
@@ -268,6 +294,16 @@ public class SetupBoard extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 1;
                     playerDestroyer.zeroCoordinates();
+                    if(destroyerShipCoordOne != null) {
+                        setupGrid[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()].setText("(" + destroyerShipCoordOne.getxCoord() + "," + destroyerShipCoordOne.getyCoord() + ")");
+                        setupGrid[destroyerShipCoordTwo.getxCoord()][destroyerShipCoordTwo.getyCoord()].setText("(" + destroyerShipCoordTwo.getxCoord() + "," + destroyerShipCoordTwo.getyCoord() + ")");
+                        filled[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()] = false;
+                        filled[destroyerShipCoordTwo.getxCoord()][destroyerShipCoordTwo.getyCoord()] = false;
+                    }
+                    textDestroyerCoordXOne.setText("X Coordinates");
+                    textDestroyerCoordYOne.setText("Y Coordinates");
+                    textDestroyerCoordXTwo.setText("X Coordinates");
+                    textDestroyerCoordYTwo.setText("Y Coordinates");
                 }
             });
             destroyerPanel.add(edit);
@@ -283,6 +319,30 @@ public class SetupBoard extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 2;
                     playerSubmarine.zeroCoordinates();
+                    if(submarineShipCoordOne != null) {
+                        setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord()].setText("(" + submarineShipCoordOne.getxCoord() + "," + submarineShipCoordOne.getyCoord() + ")");
+                        setupGrid[submarineShipCoordTwo.getxCoord()][submarineShipCoordTwo.getyCoord()].setText("(" + submarineShipCoordTwo.getxCoord() + "," + submarineShipCoordTwo.getyCoord() + ")");
+                        if ( (submarineShipCoordOne.getxCoord() == submarineShipCoordTwo.getxCoord())  &&  ( (submarineShipCoordOne.getyCoord() - submarineShipCoordTwo.getyCoord()) < 0 ) ) {
+                            setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() + 1].setText("(" + submarineShipCoordOne.getxCoord() + "," + (submarineShipCoordOne.getyCoord() + 1) + ")");
+                            filled[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() + 1] = false;
+                        }
+                        if ( (submarineShipCoordOne.getxCoord() == submarineShipCoordTwo.getxCoord())  &&  ( (submarineShipCoordOne.getyCoord() - submarineShipCoordTwo.getyCoord()) > 0 ) ) {
+                            setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() - 1].setText("(" + submarineShipCoordOne.getxCoord() + "," + (submarineShipCoordOne.getyCoord() - 1) + ")");
+                            filled[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() - 1] = false;
+                        } 
+                        if ( ((submarineShipCoordOne.getxCoord() - submarineShipCoordTwo.getxCoord()) < 0)  &&  ( submarineShipCoordOne.getyCoord() == submarineShipCoordTwo.getyCoord()) )  {
+                            setupGrid[submarineShipCoordOne.getxCoord() + 1][submarineShipCoordOne.getyCoord()].setText("(" + (submarineShipCoordOne.getxCoord() + 1) + "," + submarineShipCoordOne.getyCoord() + ")");
+                            filled[submarineShipCoordOne.getxCoord() + 1][submarineShipCoordOne.getyCoord()] = false;
+                        }
+                        if ( ((submarineShipCoordOne.getxCoord() - submarineShipCoordTwo.getxCoord()) > 0)  &&  ( (submarineShipCoordOne.getyCoord() == submarineShipCoordTwo.getyCoord()) ) ) {
+                            setupGrid[submarineShipCoordOne.getxCoord() - 1][submarineShipCoordOne.getyCoord()].setText("(" + (submarineShipCoordOne.getxCoord() - 1) + "," + submarineShipCoordOne.getyCoord() + ")");
+                            filled[submarineShipCoordOne.getxCoord() - 1][submarineShipCoordOne.getyCoord()] = false;
+                        }
+                    }
+                    textSubmarineCoordXOne.setText("X Coordinates");
+                    textSubmarineCoordYOne.setText("Y Coordinates");
+                    textSubmarineCoordXTwo.setText("X Coordinates");
+                    textSubmarineCoordYTwo.setText("Y Coordinates");
                 }
             });
             submarinePanel.add(edit);
@@ -298,6 +358,40 @@ public class SetupBoard extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 3;
                     playerBattleship.zeroCoordinates();
+                    if (battleshipShipCoordOne != null) {
+                        setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord()].setText("(" + battleshipShipCoordOne.getxCoord() + "," + battleshipShipCoordOne.getyCoord() + ")");
+                        filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord()] = false;
+                        setupGrid[battleshipShipCoordTwo.getxCoord()][battleshipShipCoordTwo.getyCoord()].setText("(" + battleshipShipCoordTwo.getxCoord() + "," + battleshipShipCoordTwo.getyCoord() + ")");
+                        filled[battleshipShipCoordTwo.getxCoord()][battleshipShipCoordTwo.getyCoord()] = false;
+                        if ( (battleshipShipCoordOne.getxCoord() == battleshipShipCoordTwo.getxCoord())  &&  ( (battleshipShipCoordOne.getyCoord() - battleshipShipCoordTwo.getyCoord()) < 0 ) ) {
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 1].setText("(" + battleshipShipCoordOne.getxCoord() + "," + (battleshipShipCoordOne.getyCoord() + 1) + ")");
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 2].setText("(" + battleshipShipCoordOne.getxCoord() + "," + (battleshipShipCoordOne.getyCoord() + 2) + ")");
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 1] = false;
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 2] = false;
+                        }
+                        if ( (battleshipShipCoordOne.getxCoord() == battleshipShipCoordTwo.getxCoord())  &&  ( (battleshipShipCoordOne.getyCoord() - battleshipShipCoordTwo.getyCoord()) > 0 ) ) {
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 1].setText("(" + battleshipShipCoordOne.getxCoord() + "," + (battleshipShipCoordOne.getyCoord() - 1) + ")");
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 1] = false;
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 2].setText("(" + battleshipShipCoordOne.getxCoord() + "," + (battleshipShipCoordOne.getyCoord() - 2) + ")");
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 2] = false;
+                        } 
+                        if ( ((battleshipShipCoordOne.getxCoord() - battleshipShipCoordTwo.getxCoord()) < 0)  &&  ( battleshipShipCoordOne.getyCoord() == battleshipShipCoordTwo.getyCoord()) )  {
+                            setupGrid[battleshipShipCoordOne.getxCoord() + 1][battleshipShipCoordOne.getyCoord()].setText("(" + (battleshipShipCoordOne.getxCoord() + 1) + "," + battleshipShipCoordOne.getyCoord() + ")");
+                            filled[battleshipShipCoordOne.getxCoord() + 1][battleshipShipCoordOne.getyCoord()] = false;
+                            setupGrid[battleshipShipCoordOne.getxCoord() + 2][battleshipShipCoordOne.getyCoord()].setText("(" + (battleshipShipCoordOne.getxCoord() + 2) + "," + battleshipShipCoordOne.getyCoord() + ")");
+                            filled[battleshipShipCoordOne.getxCoord() + 2][battleshipShipCoordOne.getyCoord()] = false;
+                        }
+                        if ( ((battleshipShipCoordOne.getxCoord() - battleshipShipCoordTwo.getxCoord()) > 0)  &&  ( (battleshipShipCoordOne.getyCoord() == battleshipShipCoordTwo.getyCoord()) ) ) {
+                            setupGrid[battleshipShipCoordOne.getxCoord() - 1][battleshipShipCoordOne.getyCoord()].setText("(" + (battleshipShipCoordOne.getxCoord() - 1) + "," + battleshipShipCoordOne.getyCoord() + ")");
+                            filled[battleshipShipCoordOne.getxCoord() - 1][battleshipShipCoordOne.getyCoord()] = false;
+                            setupGrid[battleshipShipCoordOne.getxCoord() - 2][battleshipShipCoordOne.getyCoord()].setText("(" + (battleshipShipCoordOne.getxCoord() - 2) + "," + battleshipShipCoordOne.getyCoord() + ")");
+                            filled[battleshipShipCoordOne.getxCoord() - 2][battleshipShipCoordOne.getyCoord()] = false;
+                        }
+                    }
+                    textBattleshipCoordXOne.setText("X Coordinates");
+                    textBattleshipCoordYOne.setText("Y Coordinates");
+                    textBattleshipCoordXTwo.setText("X Coordinates");
+                    textBattleshipCoordYTwo.setText("Y Coordinates");
                 }
             });
             battleshipPanel.add(edit);
@@ -313,6 +407,48 @@ public class SetupBoard extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 4;
                     playerCarrier.zeroCoordinates();
+                    if (carrierShipCoordOne != null){
+                        setupGrid[carrierShipCoordTwo.getxCoord()][carrierShipCoordTwo.getyCoord()].setText("(" + carrierShipCoordTwo.getxCoord() + "," + carrierShipCoordTwo.getyCoord() + ")");
+                        filled[carrierShipCoordTwo.getxCoord()][carrierShipCoordTwo.getyCoord()] = false;
+                        setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord()].setText("(" + carrierShipCoordOne.getxCoord() + "," + carrierShipCoordOne.getyCoord() + ")");
+                        filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord()] = false;
+                        if ( (carrierShipCoordOne.getxCoord() == carrierShipCoordTwo.getxCoord())  &&  ( (carrierShipCoordOne.getyCoord() - carrierShipCoordTwo.getyCoord()) < 0 ) ) {
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 1].setText("(" + carrierShipCoordOne.getxCoord() + "," + (carrierShipCoordOne.getyCoord() + 1) + ")");
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 2].setText("(" + carrierShipCoordOne.getxCoord() + "," + (carrierShipCoordOne.getyCoord() + 2) + ")");
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 3].setText("(" + carrierShipCoordOne.getxCoord() + "," + (carrierShipCoordOne.getyCoord() + 3) + ")");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 1] = false;
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 2] = false;
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 3] = false;
+                        }
+                        if ( (carrierShipCoordOne.getxCoord() == carrierShipCoordTwo.getxCoord())  &&  ( (carrierShipCoordOne.getyCoord() - carrierShipCoordTwo.getyCoord()) > 0 ) ) {
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 1].setText("(" + carrierShipCoordOne.getxCoord() + "," + (carrierShipCoordOne.getyCoord() - 1) + ")");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 1] = false;
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 2].setText("(" + carrierShipCoordOne.getxCoord() + "," + (carrierShipCoordOne.getyCoord() - 2) + ")");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 2] = false;
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 3].setText("(" + carrierShipCoordOne.getxCoord() + "," + (carrierShipCoordOne.getyCoord() - 3) + ")");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 3] = false;
+                        } 
+                        if ( ((carrierShipCoordOne.getxCoord() - carrierShipCoordTwo.getxCoord()) < 0)  &&  ( carrierShipCoordOne.getyCoord() == carrierShipCoordTwo.getyCoord()) )  {
+                            setupGrid[carrierShipCoordOne.getxCoord() + 1][carrierShipCoordOne.getyCoord()].setText("(" + (carrierShipCoordOne.getxCoord() + 1) + "," + carrierShipCoordOne.getyCoord() + ")");
+                            filled[carrierShipCoordOne.getxCoord() + 1][carrierShipCoordOne.getyCoord()] = false;
+                            setupGrid[carrierShipCoordOne.getxCoord() + 2][carrierShipCoordOne.getyCoord()].setText("(" + (carrierShipCoordOne.getxCoord() + 2) + "," + carrierShipCoordOne.getyCoord() + ")");
+                            filled[carrierShipCoordOne.getxCoord() + 2][carrierShipCoordOne.getyCoord()] = false;
+                            setupGrid[carrierShipCoordOne.getxCoord() + 3][carrierShipCoordOne.getyCoord()].setText("(" + (carrierShipCoordOne.getxCoord() + 3) + "," + carrierShipCoordOne.getyCoord() + ")");
+                            filled[carrierShipCoordOne.getxCoord() + 3][carrierShipCoordOne.getyCoord()] = false;
+                        }
+                        if ( ((carrierShipCoordOne.getxCoord() - carrierShipCoordTwo.getxCoord()) > 0)  &&  ( (carrierShipCoordOne.getyCoord() == carrierShipCoordTwo.getyCoord()) ) ) {
+                            setupGrid[carrierShipCoordOne.getxCoord() - 1][carrierShipCoordOne.getyCoord()].setText("(" + (carrierShipCoordOne.getxCoord() - 1) + "," + carrierShipCoordOne.getyCoord() + ")");
+                            filled[carrierShipCoordOne.getxCoord() - 1][carrierShipCoordOne.getyCoord()] = false;
+                            setupGrid[carrierShipCoordOne.getxCoord() - 2][carrierShipCoordOne.getyCoord()].setText("(" + (carrierShipCoordOne.getxCoord() - 2) + "," + carrierShipCoordOne.getyCoord() + ")");
+                            filled[carrierShipCoordOne.getxCoord() - 2][carrierShipCoordOne.getyCoord()] = false;
+                            setupGrid[carrierShipCoordOne.getxCoord() - 3][carrierShipCoordOne.getyCoord()].setText("(" + (carrierShipCoordOne.getxCoord() - 3) + "," + carrierShipCoordOne.getyCoord() + ")");
+                            filled[carrierShipCoordOne.getxCoord() - 3][carrierShipCoordOne.getyCoord()] = false;
+                        }
+                    }
+                    textCarrierCoordXOne.setText("X Coordinates");
+                    textCarrierCoordYOne.setText("Y Coordinates");
+                    textCarrierCoordXTwo.setText("X Coordinates");
+                    textCarrierCoordYTwo.setText("Y Coordinates");
                 }
             });
             carrierPanel.add(edit);
@@ -323,109 +459,223 @@ public class SetupBoard extends JPanel {
     }
     
     public void setShipCoordinates() {
-        if (shipTypeTab == 1) {
-            if(playerDestroyer.getPositionX1() == null){
-                playerDestroyer.setPositionX1(theShipCoord.getxCoord());
-                destroyerCoordXOne.setText(Integer.toString(theShipCoord.getxCoord()));
-                playerDestroyer.setPositionY1(theShipCoord.getyCoord());
-                destroyerCoordYOne.setText(Integer.toString(theShipCoord.getyCoord()));
-            } else {
-                if( ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 1) )
-                        || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == -1) )
-                        || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 1 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == -1 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        ) {
-                    playerDestroyer.setPositionX2(theShipCoord.getxCoord());
-                    destroyerCoordXTwo.setText(Integer.toString(theShipCoord.getxCoord()));
-                    playerDestroyer.setPositionY2(theShipCoord.getyCoord());
-                    destroyerCoordYTwo.setText(Integer.toString(theShipCoord.getyCoord()));
-                } else {
-                    System.out.println("Invalid entry.  Destroyers take up 2 grid.");
-                }                
-            }
-            //use theShipCoordinates to set ship coord
-        }
-        if (shipTypeTab == 2) {
-            if(playerSubmarine.getPositionX1() == null){
-                playerSubmarine.setPositionX1(theShipCoord.getxCoord());
-                submarineCoordXOne.setText(Integer.toString(theShipCoord.getxCoord()));
-                playerSubmarine.setPositionY1(theShipCoord.getyCoord());
-                submarineCoordYOne.setText(Integer.toString(theShipCoord.getyCoord()));
-            } else {
-                if( ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 2) )
-                        || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == -2) )
-                        || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 2 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == -2 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        ) {
-                    playerSubmarine.setPositionX2(theShipCoord.getxCoord());
-                    submarineCoordXTwo.setText(Integer.toString(theShipCoord.getxCoord()));
-                    playerSubmarine.setPositionY2(theShipCoord.getyCoord());
-                    submarineCoordYTwo.setText(Integer.toString(theShipCoord.getyCoord()));
-                } else {
-                    System.out.println("Invalid entry.  Submarines take up 3 grid");
+        if(filled[theShipCoord.getxCoord()][theShipCoord.getyCoord()] == false){
+            if (shipTypeTab == 1) {
+                if(playerDestroyer.getPositionX1() == null){
+                    destroyerShipCoordOne = theShipCoord;
+                    playerDestroyer.setPositionX1(destroyerShipCoordOne.getxCoord());
+                    textDestroyerCoordXOne.setText(Integer.toString(destroyerShipCoordOne.getxCoord()));
+                    playerDestroyer.setPositionY1(destroyerShipCoordOne.getyCoord());
+                    textDestroyerCoordYOne.setText(Integer.toString(destroyerShipCoordOne.getyCoord()));
+                    setupGrid[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()].setText("Ship");
+                    filled[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()] = true;
+                } else if (playerDestroyer.getPositionX2() == null) {
+                    if( ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 1) )
+                            || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == -1) )
+                            || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 1 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == -1 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            ) {
+                        destroyerShipCoordTwo = theShipCoord;
+                        playerDestroyer.setPositionX2(destroyerShipCoordTwo.getxCoord());
+                        textDestroyerCoordXTwo.setText(Integer.toString(destroyerShipCoordTwo.getxCoord()));
+                        playerDestroyer.setPositionY2(destroyerShipCoordTwo.getyCoord());
+                        textDestroyerCoordYTwo.setText(Integer.toString(destroyerShipCoordTwo.getyCoord()));
+                        setupGrid[destroyerShipCoordTwo.getxCoord()][destroyerShipCoordTwo.getyCoord()].setText("Ship");
+                        filled[destroyerShipCoordTwo.getxCoord()][destroyerShipCoordTwo.getyCoord()] = true;
+                        
+//                        System.out.println(playerDestroyer.getPositionY1());
+//                        System.out.println(playerDestroyer.getPositionX1());
+//                        System.out.println(playerDestroyer.getPositionY2());
+//                        System.out.println(playerDestroyer.getPositionX2());
+                    } else {
+                        System.out.println("Invalid entry.  Destroyers take up 2 grid.");
+                        textDestroyerCoordXTwo.setText("X Coordinates");
+                        textDestroyerCoordYTwo.setText("Y Coordinates");
+                    }                
                 }
-                
+                //use theShipCoordinates to set ship coord
             }
-            //use theShipCoordinates to set ship coord
-        }
-        if (shipTypeTab == 3) {
-            if(playerBattleship.getPositionX1() == null){
-                playerBattleship.setPositionX1(theShipCoord.getxCoord());
-                battleshipCoordXOne.setText(Integer.toString(theShipCoord.getxCoord()));
-                playerBattleship.setPositionY1(theShipCoord.getyCoord());
-                battleshipCoordYOne.setText(Integer.toString(theShipCoord.getyCoord()));
-            } else {
-                if( ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == 3) )
-                        || ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == -3) )
-                        || ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == 3 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        || ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == -3 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        ) {
-                    playerBattleship.setPositionX2(theShipCoord.getxCoord());
-                    battleshipCoordXTwo.setText(Integer.toString(theShipCoord.getxCoord()));
-                    playerBattleship.setPositionY2(theShipCoord.getyCoord());
-                    battleshipCoordYTwo.setText(Integer.toString(theShipCoord.getyCoord()));
-                } else {
-                    System.out.println("Invalid entry.  Battleships take up 4 grid");
+            if (shipTypeTab == 2) {
+                if(playerSubmarine.getPositionX1() == null){
+                    submarineShipCoordOne = theShipCoord;
+                    playerSubmarine.setPositionX1(submarineShipCoordOne.getxCoord());
+                    textSubmarineCoordXOne.setText(Integer.toString(submarineShipCoordOne.getxCoord()));
+                    playerSubmarine.setPositionY1(submarineShipCoordOne.getyCoord());
+                    textSubmarineCoordYOne.setText(Integer.toString(submarineShipCoordOne.getyCoord()));
+                    setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord()].setText("Ship");
+                } else if (playerSubmarine.getPositionX2() == null){
+                    if( ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 2) )
+                            || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == -2) )
+                            || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 2 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == -2 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            ) {
+                        submarineShipCoordTwo = theShipCoord;
+                        playerSubmarine.setPositionX2(submarineShipCoordTwo.getxCoord());
+                        textSubmarineCoordXTwo.setText(Integer.toString(submarineShipCoordTwo.getxCoord()));
+                        playerSubmarine.setPositionY2(submarineShipCoordTwo.getyCoord());
+                        textSubmarineCoordYTwo.setText(Integer.toString(submarineShipCoordTwo.getyCoord()));
+                        setupGrid[submarineShipCoordTwo.getxCoord()][submarineShipCoordTwo.getyCoord()].setText("Ship");
+                        if ( (submarineShipCoordOne.getxCoord() == submarineShipCoordTwo.getxCoord())  &&  ( (submarineShipCoordOne.getyCoord() - submarineShipCoordTwo.getyCoord()) < 0 ) ) {
+                            setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() + 1].setText("Ship");
+                            filled[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() + 1] = true;
+                        }
+                        if ( (submarineShipCoordOne.getxCoord() == submarineShipCoordTwo.getxCoord())  &&  ( (submarineShipCoordOne.getyCoord() - submarineShipCoordTwo.getyCoord()) > 0 ) ) {
+                            setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() - 1].setText("Ship");
+                            filled[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() - 1] = true;
+                        } 
+                        if ( ((submarineShipCoordOne.getxCoord() - submarineShipCoordTwo.getxCoord()) < 0)  &&  ( submarineShipCoordOne.getyCoord() == submarineShipCoordTwo.getyCoord()) )  {
+                            setupGrid[submarineShipCoordOne.getxCoord() + 1][submarineShipCoordOne.getyCoord()].setText("Ship");
+                            filled[submarineShipCoordOne.getxCoord() + 1][submarineShipCoordOne.getyCoord()] = true;
+                        }
+                        if ( ((submarineShipCoordOne.getxCoord() - submarineShipCoordTwo.getxCoord()) > 0)  &&  ( (submarineShipCoordOne.getyCoord() == submarineShipCoordTwo.getyCoord()) ) ) {
+                            setupGrid[submarineShipCoordOne.getxCoord() - 1][submarineShipCoordOne.getyCoord()].setText("Ship");
+                            filled[submarineShipCoordOne.getxCoord() - 1][submarineShipCoordOne.getyCoord()] = true;
+                        }
+                    } else {
+                        System.out.println("Invalid entry.  Submarines take up 3 grid");
+                        textSubmarineCoordXTwo.setText("X Coordinates");
+                        textSubmarineCoordYTwo.setText("Y Coordinates");
+                    }
+                    
                 }
-                
+                //use theShipCoordinates to set ship coord
             }
-            //use theShipCoordinates to set ship coord
-        }
-        if (shipTypeTab == 4) {
-            if(playerCarrier.getPositionX1() == null){
-                playerCarrier.setPositionX1(theShipCoord.getxCoord());
-                carrierCoordXOne.setText(Integer.toString(theShipCoord.getxCoord()));
-                playerCarrier.setPositionY1(theShipCoord.getyCoord());
-                carrierCoordYOne.setText(Integer.toString(theShipCoord.getyCoord()));
-            } else {
-                if( ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == 4) )
-                        || ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == -4) )
-                        || ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == 4 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        || ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == -4 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == 0) )
-                        ) {
-                    playerCarrier.setPositionX2(theShipCoord.getxCoord());
-                    carrierCoordXTwo.setText(Integer.toString(theShipCoord.getxCoord()));
-                    playerCarrier.setPositionY2(theShipCoord.getyCoord());
-                    carrierCoordYTwo.setText(Integer.toString(theShipCoord.getyCoord()));
-                } else {
-                    System.out.println("Invalid entry.  Carriers take up 5 grid");
+            if (shipTypeTab == 3) {
+                if(playerBattleship.getPositionX1() == null){
+                    battleshipShipCoordOne = theShipCoord;
+                    playerBattleship.setPositionX1(battleshipShipCoordOne.getxCoord());
+                    textBattleshipCoordXOne.setText(Integer.toString(battleshipShipCoordOne.getxCoord()));
+                    playerBattleship.setPositionY1(battleshipShipCoordOne.getyCoord());
+                    textBattleshipCoordYOne.setText(Integer.toString(battleshipShipCoordOne.getyCoord()));
+                    setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord()].setText("Ship");
+                    filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord()] = true;
+                } else if (playerBattleship.getPositionX2() == null) {
+                    if( ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == 3) )
+                            || ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == -3) )
+                            || ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == 3 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            || ( ((playerBattleship.getPositionX1() - theShipCoord.getxCoord() ) == -3 ) && ((playerBattleship.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            ) {
+                        battleshipShipCoordTwo = theShipCoord;
+                        playerBattleship.setPositionX2(battleshipShipCoordTwo.getxCoord());
+                        textBattleshipCoordXTwo.setText(Integer.toString(battleshipShipCoordTwo.getxCoord()));
+                        playerBattleship.setPositionY2(battleshipShipCoordTwo.getyCoord());
+                        textBattleshipCoordYTwo.setText(Integer.toString(battleshipShipCoordTwo.getyCoord()));
+                        setupGrid[battleshipShipCoordTwo.getxCoord()][battleshipShipCoordTwo.getyCoord()].setText("Ship");
+                        filled[battleshipShipCoordTwo.getxCoord()][battleshipShipCoordTwo.getyCoord()] = true;
+                        if ( (battleshipShipCoordOne.getxCoord() == battleshipShipCoordTwo.getxCoord())  &&  ( (battleshipShipCoordOne.getyCoord() - battleshipShipCoordTwo.getyCoord()) < 0 ) ) {
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 1].setText("Ship");
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 2].setText("Ship");
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 1] = true;
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() + 2] = true;
+                        }
+                        if ( (battleshipShipCoordOne.getxCoord() == battleshipShipCoordTwo.getxCoord())  &&  ( (battleshipShipCoordOne.getyCoord() - battleshipShipCoordTwo.getyCoord()) > 0 ) ) {
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 1].setText("Ship");
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 1] = true;
+                            setupGrid[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 2].setText("Ship");
+                            filled[battleshipShipCoordOne.getxCoord()][battleshipShipCoordOne.getyCoord() - 2] = true;
+                        } 
+                        if ( ((battleshipShipCoordOne.getxCoord() - battleshipShipCoordTwo.getxCoord()) < 0)  &&  ( battleshipShipCoordOne.getyCoord() == battleshipShipCoordTwo.getyCoord()) )  {
+                            setupGrid[battleshipShipCoordOne.getxCoord() + 1][battleshipShipCoordOne.getyCoord()].setText("Ship");
+                            filled[battleshipShipCoordOne.getxCoord() + 1][battleshipShipCoordOne.getyCoord()] = true;
+                            setupGrid[battleshipShipCoordOne.getxCoord() + 2][battleshipShipCoordOne.getyCoord()].setText("Ship");
+                            filled[battleshipShipCoordOne.getxCoord() + 2][battleshipShipCoordOne.getyCoord()] = true;
+                        }
+                        if ( ((battleshipShipCoordOne.getxCoord() - battleshipShipCoordTwo.getxCoord()) > 0)  &&  ( (battleshipShipCoordOne.getyCoord() == battleshipShipCoordTwo.getyCoord()) ) ) {
+                            setupGrid[battleshipShipCoordOne.getxCoord() - 1][battleshipShipCoordOne.getyCoord()].setText("Ship");
+                            filled[battleshipShipCoordOne.getxCoord() - 1][battleshipShipCoordOne.getyCoord()] = true;
+                            setupGrid[battleshipShipCoordOne.getxCoord() - 2][battleshipShipCoordOne.getyCoord()].setText("Ship");
+                            filled[battleshipShipCoordOne.getxCoord() - 2][battleshipShipCoordOne.getyCoord()] = true;
+                        }
+                    } else {
+                        System.out.println("Invalid entry.  Battleships take up 4 grid");
+                        textBattleshipCoordXTwo.setText("X Coordinates");
+                        textBattleshipCoordYTwo.setText("Y Coordinates");
+                    }
+                    
                 }
-                
+                //use theShipCoordinates to set ship coord
             }
+            if (shipTypeTab == 4) {
+                if(playerCarrier.getPositionX1() == null){
+                    carrierShipCoordOne = theShipCoord;
+                    playerCarrier.setPositionX1(carrierShipCoordOne.getxCoord());
+                    textCarrierCoordXOne.setText(Integer.toString(carrierShipCoordOne.getxCoord()));
+                    playerCarrier.setPositionY1(carrierShipCoordOne.getyCoord());
+                    textCarrierCoordYOne.setText(Integer.toString(carrierShipCoordOne.getyCoord()));
+                    setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord()].setText("Ship");
+                    filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord()] = true;
+                } else if (playerCarrier.getPositionX2() == null){
+                    if( ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == 4) )
+                            || ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == -4) )
+                            || ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == 4 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            || ( ((playerCarrier.getPositionX1() - theShipCoord.getxCoord() ) == -4 ) && ((playerCarrier.getPositionY1() - theShipCoord.getyCoord()) == 0) )
+                            ) {
+                        carrierShipCoordTwo = theShipCoord;
+                        playerCarrier.setPositionX2(carrierShipCoordTwo.getxCoord());
+                        textCarrierCoordXTwo.setText(Integer.toString(carrierShipCoordTwo.getxCoord()));
+                        playerCarrier.setPositionY2(carrierShipCoordTwo.getyCoord());
+                        textCarrierCoordYTwo.setText(Integer.toString(carrierShipCoordTwo.getyCoord()));
+                        setupGrid[carrierShipCoordTwo.getxCoord()][carrierShipCoordTwo.getyCoord()].setText("Ship");
+                        filled[carrierShipCoordTwo.getxCoord()][carrierShipCoordTwo.getyCoord()] = true;
+                        if ( (carrierShipCoordOne.getxCoord() == carrierShipCoordTwo.getxCoord())  &&  ( (carrierShipCoordOne.getyCoord() - carrierShipCoordTwo.getyCoord()) < 0 ) ) {
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 1].setText("Ship");
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 2].setText("Ship");
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 3].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 1] = true;
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 2] = true;
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() + 3] = true;
+                        }
+                        if ( (carrierShipCoordOne.getxCoord() == carrierShipCoordTwo.getxCoord())  &&  ( (carrierShipCoordOne.getyCoord() - carrierShipCoordTwo.getyCoord()) > 0 ) ) {
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 1].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 1] = true;
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 2].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 2] = true;
+                            setupGrid[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 3].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord()][carrierShipCoordOne.getyCoord() - 3] = true;
+                        } 
+                        if ( ((carrierShipCoordOne.getxCoord() - carrierShipCoordTwo.getxCoord()) < 0)  &&  ( carrierShipCoordOne.getyCoord() == carrierShipCoordTwo.getyCoord()) )  {
+                            setupGrid[carrierShipCoordOne.getxCoord() + 1][carrierShipCoordOne.getyCoord()].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord() + 1][carrierShipCoordOne.getyCoord()] = true;
+                            setupGrid[carrierShipCoordOne.getxCoord() + 2][carrierShipCoordOne.getyCoord()].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord() + 2][carrierShipCoordOne.getyCoord()] = true;
+                            setupGrid[carrierShipCoordOne.getxCoord() + 3][carrierShipCoordOne.getyCoord()].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord() + 3][carrierShipCoordOne.getyCoord()] = true;
+                        }
+                        if ( ((carrierShipCoordOne.getxCoord() - carrierShipCoordTwo.getxCoord()) > 0)  &&  ( (carrierShipCoordOne.getyCoord() == carrierShipCoordTwo.getyCoord()) ) ) {
+                            setupGrid[carrierShipCoordOne.getxCoord() - 1][carrierShipCoordOne.getyCoord()].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord() - 1][carrierShipCoordOne.getyCoord()] = true;
+                            setupGrid[carrierShipCoordOne.getxCoord() - 2][carrierShipCoordOne.getyCoord()].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord() - 2][carrierShipCoordOne.getyCoord()] = true;
+                            setupGrid[carrierShipCoordOne.getxCoord() - 3][carrierShipCoordOne.getyCoord()].setText("Ship");
+                            filled[carrierShipCoordOne.getxCoord() - 3][carrierShipCoordOne.getyCoord()] = true;
+                        }
+                    } else {
+                        System.out.println("Invalid entry.  Carriers take up 5 grid");
+                        textCarrierCoordXTwo.setText("X Coordinates");
+                        textCarrierCoordYTwo.setText("Y Coordinates");
+                    }
+                    
+                }
+            }
+        } else {
+            System.out.println("Space is occupied");
         }
+        
     }
     
     public void createSetupButtons() {
         setupGrid = new JButton[WIDTH][LENGTH];     
+        filled = new boolean[WIDTH][LENGTH];
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
-                setupGrid[i][j] = new JButton("(" + j + "," + i + ")");
-                gridPane.add(setupGrid[i][j]);
+                filled[j][i] = false;
+                setupGrid[j][i] = new JButton("(" + j + "," + i + ")");
+                gridPane.add(setupGrid[j][i]);
                 final int tempI = i;
                 final int tempJ = j;
-                setupGrid[i][j].addActionListener(new ActionListener() {
+                setupGrid[j][i].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        Coordinates shipCoord = new Coordinates(tempI, tempJ);
+                        Coordinates shipCoord = new Coordinates(tempJ, tempI);
                         theShipCoord = shipCoord;
                         setShipCoordinates();                      
                     }
