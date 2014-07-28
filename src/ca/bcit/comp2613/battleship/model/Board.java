@@ -99,18 +99,22 @@ public class Board extends JPanel{
         case 0: 
             gridFilled[randomOne + 1][randomTwo] = true;
             gridFilled[randomOne + 2][randomTwo] = true;
+            submarine = new Submarine(randomOne, randomTwo, randomOne+2, randomTwo, 3);
             break;
         case 1:
             gridFilled[randomOne - 1][randomTwo] = true;
             gridFilled[randomOne - 2][randomTwo] = true;
+            submarine = new Submarine(randomOne, randomTwo, randomOne-2, randomTwo, 3);
             break;
         case 2:
             gridFilled[randomOne][randomTwo + 1] = true;
             gridFilled[randomOne][randomTwo + 2] = true;
+            submarine = new Submarine(randomOne, randomTwo, randomOne, randomTwo+2, 3);
             break;
         case 3:
             gridFilled[randomOne][randomTwo - 1] = true;
             gridFilled[randomOne][randomTwo - 2] = true;
+            submarine = new Submarine(randomOne, randomTwo, randomOne, randomTwo-2, 3);
             break;
         }
         
@@ -127,21 +131,25 @@ public class Board extends JPanel{
             gridFilled[randomOne + 1][randomTwo] = true;
             gridFilled[randomOne + 2][randomTwo] = true;
             gridFilled[randomOne + 3][randomTwo] = true;
+            battleship = new Battleship(randomOne, randomTwo, randomOne+3, randomTwo, 4);
             break;
         case 1:
             gridFilled[randomOne - 1][randomTwo] = true;
             gridFilled[randomOne - 2][randomTwo] = true;
             gridFilled[randomOne - 3][randomTwo] = true;
+            battleship = new Battleship(randomOne, randomTwo, randomOne-3, randomTwo, 4);
             break;
         case 2:
             gridFilled[randomOne][randomTwo + 1] = true;
             gridFilled[randomOne][randomTwo + 2] = true;
             gridFilled[randomOne][randomTwo + 3] = true;
+            battleship = new Battleship(randomOne, randomTwo, randomOne, randomTwo+3, 4);
             break;
         case 3:
             gridFilled[randomOne][randomTwo - 1] = true;
             gridFilled[randomOne][randomTwo - 2] = true;
             gridFilled[randomOne][randomTwo - 3] = true;
+            battleship = new Battleship(randomOne, randomTwo, randomOne, randomTwo-3, 4);
             break;
         }
         
@@ -159,24 +167,28 @@ public class Board extends JPanel{
             gridFilled[randomOne + 2][randomTwo] = true;
             gridFilled[randomOne + 3][randomTwo] = true;
             gridFilled[randomOne + 4][randomTwo] = true;
+            carrier = new Carrier(randomOne, randomTwo, randomOne+4, randomTwo, 5);
             break;
         case 1:
             gridFilled[randomOne - 1][randomTwo] = true;
             gridFilled[randomOne - 2][randomTwo] = true;
             gridFilled[randomOne - 3][randomTwo] = true;
             gridFilled[randomOne - 4][randomTwo] = true;
+            carrier = new Carrier(randomOne, randomTwo, randomOne-4, randomTwo, 5);
             break;
         case 2:
             gridFilled[randomOne][randomTwo + 1] = true;
             gridFilled[randomOne][randomTwo + 2] = true;
             gridFilled[randomOne][randomTwo + 3] = true;
             gridFilled[randomOne][randomTwo + 4] = true;
+            carrier = new Carrier(randomOne, randomTwo, randomOne, randomTwo+4, 5);
             break;
         case 3:
             gridFilled[randomOne][randomTwo - 1] = true;
             gridFilled[randomOne][randomTwo - 2] = true;
             gridFilled[randomOne][randomTwo - 3] = true;
             gridFilled[randomOne][randomTwo - 4] = true;
+            carrier = new Carrier(randomOne, randomTwo, randomOne, randomTwo-4, 5);
             break;
         }
         
@@ -185,7 +197,6 @@ public class Board extends JPanel{
     public void computerSetup() {
         compGrid = new boolean[WIDTH][LENGTH];
         compGrid = SetupBoard.getFilled();
-               
     }
 }
 
