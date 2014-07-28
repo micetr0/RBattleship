@@ -22,6 +22,7 @@ public class Board extends JPanel{
     private boolean[][] gridFilled;
     private boolean[][] compGrid;
     private boolean[][] clicked;
+    private boolean[][] compSelected;
     
     public static final int WIDTH = 11;
     public static final int LENGTH = 11;
@@ -38,6 +39,8 @@ public class Board extends JPanel{
     private int score;
     private int miss;
     private int hit;
+    private int compMiss;
+    private int compHit;
     
     Random rand = new Random();
     
@@ -52,6 +55,8 @@ public class Board extends JPanel{
         gameEnd = false;
         hit = 0;
         miss = 0;
+        compHit = 0;
+        compMiss = 0;
         createButtons();
         computerSetup();
         placeCompShips();
@@ -82,13 +87,34 @@ public class Board extends JPanel{
 //        
 //    }
     
+    public void compMove() {
+        int compMoveOne = rand.nextInt(10) + 1;
+        int compMoveTwo = rand.nextInt(10) + 1;
+        while (compSelected[compMoveOne][compMoveTwo] == true) {
+            compMoveOne = rand.nextInt(10) + 1;
+            compMoveTwo = rand.nextInt(10) + 1;
+        }
+        compSelected[compMoveOne][compMoveTwo] = true;
+        if (compGrid[compMoveOne][compMoveTwo] == true) {
+            compHit++;
+        } else {
+            compMiss++;
+        }
+        //check if comp hit all player's ship.  All compGrid == compSelected.  means computer finished.
+        if (gameEnd == true) {
+            //run game end
+        }
+    }
+    
     public void createButtons() {
         grid = new JButton[WIDTH][LENGTH];   
         gridFilled = new boolean[WIDTH][LENGTH];
         clicked = new boolean[WIDTH][LENGTH];
+        compSelected = new boolean[WIDTH][LENGTH];
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
                 clicked[j][i] = false;
+                compSelected[j][i] = false;
                 gridFilled[j][i] = false;
                 grid[j][i] = new JButton("(" + j + "," + i + ")");
                 add(grid[j][i]);
@@ -103,16 +129,19 @@ public class Board extends JPanel{
                             if (gridFilled[tempJ][tempI] == true) {
                                 hit++;
                                 grid[tempJ][tempI].setText("*");
-                                //comp's move
+                                compMove();
                             } else {
                                 miss++;
                                 grid[tempJ][tempI].setText("X");
-                                //comp's move
+                                compMove();
                             }
                         } else {
                             System.out.println("You have already checked this grid");
                         }
-                        
+                        //run check if all ships are hit. all gridFilled == clicked.  means player finished.  
+                        if(gameEnd == true) {
+                            //run game end method
+                        }
                     }
                 });
             }
