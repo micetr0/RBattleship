@@ -1,6 +1,8 @@
 package ca.bcit.comp2613.battleship.model;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Random;
 
@@ -19,12 +21,23 @@ public class Board extends JPanel{
     private JButton[][] grid;
     private boolean[][] gridFilled;
     private boolean[][] compGrid;
+    private boolean[][] clicked;
+    
     public static final int WIDTH = 11;
     public static final int LENGTH = 11;
+    
     private Destroyer destroyer;
     private Submarine submarine;
     private Battleship battleship;
     private Carrier carrier;
+    
+    private boolean gameEnd;
+    
+    private int turn;
+    
+    private int score;
+    private int miss;
+    private int hit;
     
     Random rand = new Random();
     
@@ -35,7 +48,13 @@ public class Board extends JPanel{
     public Board() {
         setLayout(new GridLayout(WIDTH, LENGTH));
         setSize(850,850);
+        turn = 0;
+        gameEnd = false;
+        hit = 0;
+        miss = 0;
         createButtons();
+        computerSetup();
+        placeCompShips();
     }
     
     public long getBoardId() {
@@ -50,14 +69,52 @@ public class Board extends JPanel{
         this.ships = ships;
     }    
     
+//    public void playGame() {
+//        turn++;
+//        if(turn % 2 == 1) {
+//            //first player move
+//        } else {
+//            //comp player move
+//        }
+//    }
+//    
+//    public void playerMove() {
+//        
+//    }
+    
     public void createButtons() {
         grid = new JButton[WIDTH][LENGTH];   
         gridFilled = new boolean[WIDTH][LENGTH];
+        clicked = new boolean[WIDTH][LENGTH];
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
+                clicked[j][i] = false;
                 gridFilled[j][i] = false;
                 grid[j][i] = new JButton("(" + j + "," + i + ")");
                 add(grid[j][i]);
+                final int tempI = i;
+                final int tempJ = j;
+                grid[j][i].addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        // * is hit
+                        // X is missed
+                        if(clicked[tempJ][tempI] == false) {
+                            clicked[tempJ][tempI] = true;
+                            if (gridFilled[tempJ][tempI] == true) {
+                                hit++;
+                                grid[tempJ][tempI].setText("*");
+                                //comp's move
+                            } else {
+                                miss++;
+                                grid[tempJ][tempI].setText("X");
+                                //comp's move
+                            }
+                        } else {
+                            System.out.println("You have already checked this grid");
+                        }
+                        
+                    }
+                });
             }
         }
     }
