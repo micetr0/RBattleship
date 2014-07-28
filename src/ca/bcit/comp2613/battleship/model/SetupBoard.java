@@ -22,7 +22,7 @@ public class SetupBoard extends JPanel {
     private JPanel gridPane; 
     private JPanel shipPane;
     private JButton[][] setupGrid;
-    private boolean [][] filled;
+    private static boolean [][] filled;
     
     public static final int WIDTH = 11;
     public static final int LENGTH = 11;
@@ -39,10 +39,10 @@ public class SetupBoard extends JPanel {
     private Coordinates carrierShipCoordTwo;
     private int shipTypeTab;
     
-    Destroyer playerDestroyer;
-    Submarine playerSubmarine;
-    Battleship playerBattleship;
-    Carrier playerCarrier;    
+    private static Destroyer playerDestroyer;
+    private static Submarine playerSubmarine;
+    private static Battleship playerBattleship;
+    private static Carrier playerCarrier;    
     
     private JTextField textDestroyerCoordXOne;
     private JTextField textDestroyerCoordYOne;
@@ -289,7 +289,6 @@ public class SetupBoard extends JPanel {
             JPanel destroyerPanel = new JPanel(new FlowLayout());
             
             JButton edit = new JButton("Edit");
-            JButton save = new JButton("Save");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 1;
@@ -307,14 +306,12 @@ public class SetupBoard extends JPanel {
                 }
             });
             destroyerPanel.add(edit);
-            destroyerPanel.add(save);
             threePanel = destroyerPanel;
         }
         if(shipType.equals("Submarine")){
             JPanel submarinePanel = new JPanel(new FlowLayout());
             
             JButton edit = new JButton("Edit");
-            JButton save = new JButton("Save");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 2;
@@ -346,14 +343,12 @@ public class SetupBoard extends JPanel {
                 }
             });
             submarinePanel.add(edit);
-            submarinePanel.add(save);
             threePanel = submarinePanel;
         }
         if(shipType.equals("Battleship")){
             JPanel battleshipPanel = new JPanel(new FlowLayout());
             
             JButton edit = new JButton("Edit");
-            JButton save = new JButton("Save");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 3;
@@ -395,14 +390,12 @@ public class SetupBoard extends JPanel {
                 }
             });
             battleshipPanel.add(edit);
-            battleshipPanel.add(save);
             threePanel = battleshipPanel;
         }
         if(shipType.equals("Carrier")){
             JPanel carrierPanel = new JPanel(new FlowLayout());
             
             JButton edit = new JButton("Edit");
-            JButton save = new JButton("Save");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 4;
@@ -452,7 +445,6 @@ public class SetupBoard extends JPanel {
                 }
             });
             carrierPanel.add(edit);
-            carrierPanel.add(save);
             threePanel = carrierPanel;
         }
         return threePanel;
@@ -684,4 +676,47 @@ public class SetupBoard extends JPanel {
             
         }
     }
+
+    public static boolean[][] getFilled() {
+        return filled;
+    }
+
+    public void setFilled(boolean[][] filled) {
+        this.filled = filled;
+    }
+
+    public static Destroyer getPlayerDestroyer() {
+        return playerDestroyer;
+    }
+
+    public void setPlayerDestroyer(Destroyer playerDestroyer) {
+        this.playerDestroyer = playerDestroyer;
+    }
+
+    public static Submarine getPlayerSubmarine() {
+        return playerSubmarine;
+    }
+
+    public void setPlayerSubmarine(Submarine playerSubmarine) {
+        this.playerSubmarine = playerSubmarine;
+    }
+
+    public static Battleship getPlayerBattleship() {
+        return playerBattleship;
+    }
+
+    public void setPlayerBattleship(Battleship playerBattleship) {
+        this.playerBattleship = playerBattleship;
+    }
+
+    public static Carrier getPlayerCarrier() {
+        return playerCarrier;
+    }
+
+    public void setPlayerCarrier(Carrier playerCarrier) {
+        this.playerCarrier = playerCarrier;
+    }
+    
+    
+    
 }

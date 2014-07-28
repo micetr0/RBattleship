@@ -36,7 +36,7 @@ public class Menu extends JFrame {
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 submit();
-                dispose();    
+                dispose();
             }
         });
         pane.add(submit);
@@ -48,17 +48,21 @@ public class Menu extends JFrame {
         //code to link to next screen
         //dispose()
         
-        Board board = new Board();
-        JPanel ctrlPanel = new JPanel();
-        ctrlPanel.setSize(850, 150);
+//        Board board = new Board();
+//        JPanel ctrlPanel = new JPanel();
+//        ctrlPanel.setSize(850, 150);
+//        JFrame f = new JFrame("test");
+//        f.setSize(850, 1000);
+//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        f.setVisible(true);
+//        f.add(board);
+//        f.add(ctrlPanel);
+        SetupBoard setup = new SetupBoard();
         JFrame f = new JFrame("test");
-        f.setSize(850, 1000);
+        f.setSize(850, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
-        f.add(board);
-        f.add(ctrlPanel);
+        f.add(setup);
         
     }
-    
-    
 }
