@@ -12,21 +12,7 @@ import ca.bcit.comp2613.battleship.model.SetupBoard;
 public class BattleShip {
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-//        Board board = new Board();
-//        JPanel ctrlPanel = new JPanel();
-//        ctrlPanel.setSize(850, 150);
-//        
-//        JFrame g = new JFrame("test");
-//        g.setSize(850, 1000);
-//        g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        g.setVisible(true);
-//        g.add(board);
-//        g.add(ctrlPanel);
-        
      
-
-      
       Menu menu = new Menu();
       }
     

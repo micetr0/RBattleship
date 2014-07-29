@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -305,7 +306,22 @@ public class SetupBoard extends JPanel {
                     textDestroyerCoordYTwo.setText("Y Coordinates");
                 }
             });
+            JButton startGame = new JButton("Start");
+            startGame.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                  Board board = new Board();
+                  JPanel ctrlPanel = new JPanel();
+                  ctrlPanel.setSize(850, 150);
+                  JFrame f = new JFrame("BattleShip");
+                  f.setSize(850, 1000);
+                  f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                  f.setVisible(true);
+                  f.add(board);
+                  f.add(ctrlPanel);
+                }
+            });
             destroyerPanel.add(edit);
+            destroyerPanel.add(startGame);
             threePanel = destroyerPanel;
         }
         if(shipType.equals("Submarine")){
