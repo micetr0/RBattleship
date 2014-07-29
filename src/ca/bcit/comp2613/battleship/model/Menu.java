@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -14,9 +15,16 @@ import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
 
-    private JTextField fullName;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField fullName;
     private JButton submit;
     private JPanel pane;
+    //Score panel
+    private JLabel topScore;
+    private JPanel pane2;
         
     public Menu() {
         pane = new JPanel();
@@ -26,7 +34,16 @@ public class Menu extends JFrame {
         textFieldButtons();
         add(pane);
         setVisible(true);
+        
+        //JPanel score menu
+        pane2 = new JPanel();
+    	setSize(400,400);
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	ScoreListing();
+    	add(pane2);
+    	setVisible(true);
      }
+    
     
     public void textFieldButtons(){
         fullName = new JTextField("Input full name");
@@ -58,11 +75,17 @@ public class Menu extends JFrame {
 //        f.add(board);
 //        f.add(ctrlPanel);
         SetupBoard setup = new SetupBoard();
-        JFrame f = new JFrame("test");
+        JFrame f = new JFrame("Player Setup");
         f.setSize(850, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
         f.add(setup);
+        
+    }
+    
+    public void ScoreListing(){
+        topScore = new JLabel("Top Score:");
+        pane2.add (topScore);
         
     }
 }
