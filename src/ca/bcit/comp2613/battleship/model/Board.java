@@ -42,6 +42,17 @@ public class Board extends JPanel{
     private int turn;
     
     private int score;
+    
+//    score = total hit + total miss + turn bonus
+//
+//    		each hit + 10
+//    		each miss - 5
+//
+//    		turn bonus?
+//    		< 20 turns + 100
+//    		< 40 turns + 50
+//    		< 60 turns + 0
+    			
     private int miss;
     private int hit;
     private int compMiss;
@@ -56,6 +67,8 @@ public class Board extends JPanel{
     public Board() {
         setLayout(new GridLayout(WIDTH, LENGTH));
         setSize(850,850);
+        //added init score
+        score = 0;
         turn = 0;
         gameEnd = false;
         playerWin = false;
