@@ -307,10 +307,11 @@ public class SetupBoard extends JPanel {
                 }
             });
             destroyerPanel.add(edit);
-            JButton startGame = new JButton("Start");
+            final JButton startGame = new JButton("Start");
             startGame.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     startGame();
+                    destroyerPanel.remove(startGame);
                 }
             });
             
@@ -464,14 +465,30 @@ public class SetupBoard extends JPanel {
             System.out.println("Please place all ships");
         } else {
             Board board = new Board();
+            JPanel holder = new JPanel();
+            holder.setLayout(new BoxLayout(holder, BoxLayout.Y_AXIS));
             JPanel ctrlPanel = new JPanel();
-            ctrlPanel.setSize(850, 150);
+            JButton viewSetup = new JButton("View Ships");
+            viewSetup.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if(Menu.getFrameVisibility() == false){
+                        Menu.setupFrameVisibility(true);
+                    } else {
+                        Menu.setupFrameVisibility(false);
+                    }
+                }
+            });
+            ctrlPanel.setSize(600, 100);
+            ctrlPanel.add(viewSetup);
             JFrame f = new JFrame("BattleShip");
-            f.setSize(850, 1000);
+            holder.add(board);
+            holder.add(ctrlPanel);
+            f.setSize(600, 700);
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             f.setVisible(true);
-            f.add(board);
-            f.add(ctrlPanel);
+            f.add(holder);
+//            f.add(ctrlPanel);
+            Menu.setupFrameVisibility(false);
         }
     }
     

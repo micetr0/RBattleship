@@ -71,7 +71,7 @@ public class Board extends JPanel{
         
     public Board() {
         setLayout(new GridLayout(WIDTH, LENGTH));
-        setSize(850,850);
+        setSize(600,600);
         //added init score
         playerDestroyer = SetupBoard.getPlayerDestroyer(); 
         playerSubmarine = SetupBoard.getPlayerSubmarine();
@@ -191,11 +191,17 @@ public class Board extends JPanel{
         compSelected = new boolean[WIDTH][LENGTH];
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
-                if(i == 0 || j == 0){
+                if(i == 0){
                     clicked[j][i] = false;
                     compSelected[j][i] = false;
                     gridFilled[j][i] = false;
-                    grid[j][i] = new JButton("(" + j + "," + i + ")");
+                    grid[j][i] = new JButton(""+j);
+                    add(grid[j][i]);
+                } else if (j == 0){
+                    clicked[j][i] = false;
+                    compSelected[j][i] = false;
+                    gridFilled[j][i] = false;
+                    grid[j][i] = new JButton(""+i);
                     add(grid[j][i]);
                 } else {
                     clicked[j][i] = false;

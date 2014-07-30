@@ -27,6 +27,7 @@ public class Menu extends JFrame {
     private JPanel pane;
     //Score panel
     private JLabel topScore;
+    private static JFrame f;
     
         
     public Menu() {
@@ -37,6 +38,7 @@ public class Menu extends JFrame {
         textFieldButtons();
         add(pane);
         setVisible(true);
+        f = new JFrame("Player Setup");
         
         //JPanel score menu
 
@@ -82,7 +84,6 @@ public class Menu extends JFrame {
 //        f.add(board);
 //        f.add(ctrlPanel);
         SetupBoard setup = new SetupBoard();
-        JFrame f = new JFrame("Player Setup");
         f.setSize(850, 500);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
@@ -95,4 +96,16 @@ public class Menu extends JFrame {
         pane.add (topScore);
         
     }
+    
+    public static void setupFrameVisibility(boolean visible) {
+        f.setVisible(visible);
+    }
+
+
+    public static boolean getFrameVisibility() {
+        boolean result;
+        result = f.isVisible();
+        return result;
+    }
+    
 }
