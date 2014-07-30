@@ -35,6 +35,11 @@ public class Board extends JPanel{
     private Battleship battleship;
     private Carrier carrier;
     
+    private Destroyer playerDestroyer;
+    private Submarine playerSubmarine;
+    private Battleship playerBattleship;
+    private Carrier playerCarrier;
+    
     private boolean gameEnd;
     private boolean playerWin;
     private boolean compWin;
@@ -68,6 +73,10 @@ public class Board extends JPanel{
         setLayout(new GridLayout(WIDTH, LENGTH));
         setSize(850,850);
         //added init score
+        playerDestroyer = SetupBoard.getPlayerDestroyer(); 
+        playerSubmarine = SetupBoard.getPlayerSubmarine();
+        playerBattleship = SetupBoard.getPlayerBattleship();
+        playerCarrier = SetupBoard.getPlayerCarrier();
         score = 0;
         turn = 0;
         gameEnd = false;
@@ -77,6 +86,7 @@ public class Board extends JPanel{
         miss = 0;
         compHit = 0;
         compMiss = 0;
+        
         createButtons();
         placeCompShips();
         computerSetup();
@@ -117,8 +127,11 @@ public class Board extends JPanel{
         compSelected[compMoveOne][compMoveTwo] = true;
         if (compGrid[compMoveOne][compMoveTwo] == true) {
             compHit++;
+            checkPlayerShipCoordinates(compMoveOne,compMoveTwo);
+            
         } else {
             compMiss++;
+            checkPlayerShipCoordinates(compMoveOne,compMoveTwo);
         }
         //check if comp hit all player's ship.  All compGrid == compSelected.  means computer finished.
         checkCompWin();
@@ -128,16 +141,46 @@ public class Board extends JPanel{
     }
     
     public void checkCompWin() {
-        if(Arrays.equals(compGrid, compSelected)) {
+        if(playerDestroyer.getEndurance() == 0 && playerSubmarine.getEndurance() == 0 && playerBattleship.getEndurance() == 0  && playerCarrier.getEndurance() == 0) {
             gameEnd = true;
             compWin = true;
         }
     }
     
     public void checkPlayerWin() {
-        if(Arrays.equals(clicked, gridFilled)) {
+        if(destroyer.getEndurance() == 0 && submarine.getEndurance() == 0 && battleship.getEndurance() == 0  && carrier.getEndurance() == 0) {
             gameEnd = true;
             playerWin = true;
+        }
+    }
+    
+    public void checkPlayerShipCoordinates(int x, int y) {
+        if( (x == playerDestroyer.getPositionX1() && y == playerDestroyer.getPositionY1()) || (x == playerDestroyer.getPositionX2() && y == playerDestroyer.getPositionY2()) ) {
+            playerDestroyer.decrementEndurance();
+        }
+        if((x == playerSubmarine.getPositionX1() && y == playerSubmarine.getPositionY1()) || (x == playerSubmarine.getPositionX2() && y == playerSubmarine.getPositionY2()) || (x == playerSubmarine.getPositionX3() && y == playerSubmarine.getPositionY3() ) ) {
+            playerSubmarine.decrementEndurance();
+        }
+        if((x == playerBattleship.getPositionX1() && y == playerBattleship.getPositionY1()) || (x == playerBattleship.getPositionX2() && y == playerBattleship.getPositionY2()) || (x == playerBattleship.getPositionX3() && y == playerBattleship.getPositionY3() ) || (x == playerBattleship.getPositionX4() && y == playerBattleship.getPositionY4())) {
+            playerBattleship.decrementEndurance();
+        }
+        if((x == playerCarrier.getPositionX1() && y == playerCarrier.getPositionY1()) || (x == playerCarrier.getPositionX2() && y == playerCarrier.getPositionY2()) || (x == playerCarrier.getPositionX3() && y == playerCarrier.getPositionY3() ) || (x == playerCarrier.getPositionX4() && y == playerCarrier.getPositionY4()) || (x == playerCarrier.getPositionX5() && y == playerCarrier.getPositionY5())) {
+            playerCarrier.decrementEndurance();
+        }
+    }
+    
+    public void checkShipCoordinates(int x, int y) {
+        if( (x == destroyer.getPositionX1() && y == destroyer.getPositionY1()) || (x == destroyer.getPositionX2() && y == destroyer.getPositionY2()) ) {
+            destroyer.decrementEndurance();
+        }
+        if((x == submarine.getPositionX1() && y == submarine.getPositionY1()) || (x == submarine.getPositionX2() && y == submarine.getPositionY2()) || (x == submarine.getPositionX3() && y == submarine.getPositionY3() ) ) {
+            submarine.decrementEndurance();
+        }
+        if((x == battleship.getPositionX1() && y == battleship.getPositionY1()) || (x == battleship.getPositionX2() && y == battleship.getPositionY2()) || (x == battleship.getPositionX3() && y == battleship.getPositionY3() ) || (x == battleship.getPositionX4() && y == battleship.getPositionY4())) {
+            battleship.decrementEndurance();
+        }
+        if((x == carrier.getPositionX1() && y == carrier.getPositionY1()) || (x == carrier.getPositionX2() && y == carrier.getPositionY2()) || (x == carrier.getPositionX3() && y == carrier.getPositionY3() ) || (x == carrier.getPositionX4() && y == carrier.getPositionY4()) || (x == carrier.getPositionX5() && y == carrier.getPositionY5())) {
+            carrier.decrementEndurance();
         }
     }
     
@@ -148,41 +191,51 @@ public class Board extends JPanel{
         compSelected = new boolean[WIDTH][LENGTH];
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
-                clicked[j][i] = false;
-                compSelected[j][i] = false;
-                gridFilled[j][i] = false;
-                grid[j][i] = new JButton("(" + j + "," + i + ")");
-                add(grid[j][i]);
-                final int tempI = i;
-                final int tempJ = j;
-                grid[j][i].addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // * is hit
-                        // X is missed
-                        if(clicked[tempJ][tempI] == false) {
-                            clicked[tempJ][tempI] = true;
-                            if (gridFilled[tempJ][tempI] == true) {
-                                hit++;
-                                grid[tempJ][tempI].setText("*");
-                                compMove();
-                                turn++;
+                if(i == 0 || j == 0){
+                    clicked[j][i] = false;
+                    compSelected[j][i] = false;
+                    gridFilled[j][i] = false;
+                    grid[j][i] = new JButton("(" + j + "," + i + ")");
+                    add(grid[j][i]);
+                } else {
+                    clicked[j][i] = false;
+                    compSelected[j][i] = false;
+                    gridFilled[j][i] = false;
+                    grid[j][i] = new JButton("");
+                    add(grid[j][i]);
+                    final int tempI = i;
+                    final int tempJ = j;
+                    grid[j][i].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            // * is hit
+                            // X is missed
+                            if(clicked[tempJ][tempI] == false) {
+                                clicked[tempJ][tempI] = true;
+                                if (gridFilled[tempJ][tempI] == true) {
+                                    hit++;
+                                    grid[tempJ][tempI].setText("*");
+                                    compMove();
+                                    turn++;
+                                    checkShipCoordinates(tempJ, tempI);
+                                } else {
+                                    miss++;
+                                    grid[tempJ][tempI].setText("X");
+                                    compMove();
+                                    turn++;
+                                    checkShipCoordinates(tempJ, tempI);
+                                }
                             } else {
-                                miss++;
-                                grid[tempJ][tempI].setText("X");
-                                compMove();
-                                turn++;
+                                System.out.println("You have already checked this grid");
                             }
-                        } else {
-                            System.out.println("You have already checked this grid");
+                            //run check if all ships are hit. all gridFilled == clicked.  means player finished.  
+                            checkPlayerWin();
+                            System.out.println(gameEnd);
+                            if(gameEnd == true) {
+                                gameEnd();
+                            }
                         }
-                        //run check if all ships are hit. all gridFilled == clicked.  means player finished.  
-                        checkPlayerWin();
-                        System.out.println(gameEnd);
-                        if(gameEnd == true) {
-                            gameEnd();
-                        }
-                    }
-                });
+                    });
+                }
             }
         }
         System.out.println(Arrays.equals(clicked, gridFilled));
@@ -212,16 +265,16 @@ public class Board extends JPanel{
         int result;
         while (x == 10 && direction == 0) {
             direction = rand.nextInt(3);
-            while(y == 0 && direction == 3) {
+            while(y == 1 && direction == 3) {
                 direction = rand.nextInt(3);
             }
             while(y == 10 && direction == 2) {
                 direction = rand.nextInt(3);
             }
         }
-        while (x == 0 && direction == 1) {
+        while (x == 1 && direction == 1) {
             direction = rand.nextInt(3);
-            while(y == 0 && direction == 3){
+            while(y == 1 && direction == 3){
                 direction = rand.nextInt(3);
             }
             while(y == 10 && direction == 2) {
@@ -230,16 +283,16 @@ public class Board extends JPanel{
         }
         while (y == 10 && direction == 2) {
             direction = rand.nextInt(3);
-            while(x == 0 && direction == 1) {
+            while(x == 1 && direction == 1) {
                 direction = rand.nextInt(3);
             }
             while(x == 10 && direction == 0) {
                 direction = rand.nextInt(3);
             }
         }
-        while (y == 0 && direction == 3) {
+        while (y == 1 && direction == 3) {
             direction = rand.nextInt(3);
-            while(x == 0 && direction == 1) {
+            while(x == 1 && direction == 1) {
                 direction = rand.nextInt(3);
             }
             while(x == 10 && direction == 0) {
@@ -345,22 +398,22 @@ public class Board extends JPanel{
         case 0: 
             gridFilled[randomOne + 1][randomTwo] = true;
             gridFilled[randomOne + 2][randomTwo] = true;
-            submarine = new Submarine(randomOne, randomTwo, randomOne+2, randomTwo, 3);
+            submarine = new Submarine(randomOne, randomTwo, randomOne+1, randomTwo, randomOne+2, randomTwo, 3);
             break;
         case 1:
             gridFilled[randomOne - 1][randomTwo] = true;
             gridFilled[randomOne - 2][randomTwo] = true;
-            submarine = new Submarine(randomOne, randomTwo, randomOne-2, randomTwo, 3);
+            submarine = new Submarine(randomOne, randomTwo, randomOne-1, randomTwo, randomOne-2, randomTwo, 3);
             break;
         case 2:
             gridFilled[randomOne][randomTwo + 1] = true;
             gridFilled[randomOne][randomTwo + 2] = true;
-            submarine = new Submarine(randomOne, randomTwo, randomOne, randomTwo+2, 3);
+            submarine = new Submarine(randomOne, randomTwo, randomOne, randomTwo+1, randomOne, randomTwo+2, 3);
             break;
         case 3:
             gridFilled[randomOne][randomTwo - 1] = true;
             gridFilled[randomOne][randomTwo - 2] = true;
-            submarine = new Submarine(randomOne, randomTwo, randomOne, randomTwo-2, 3);
+            submarine = new Submarine(randomOne, randomTwo, randomOne, randomTwo-1, randomOne, randomTwo-2, 3);
             break;
         }
         
@@ -380,25 +433,25 @@ public class Board extends JPanel{
             gridFilled[randomOne + 1][randomTwo] = true;
             gridFilled[randomOne + 2][randomTwo] = true;
             gridFilled[randomOne + 3][randomTwo] = true;
-            battleship = new Battleship(randomOne, randomTwo, randomOne+3, randomTwo, 4);
+            battleship = new Battleship(randomOne, randomTwo, randomOne+1, randomTwo, randomOne+2, randomTwo, randomOne+3, randomTwo, 4);
             break;
         case 1:
             gridFilled[randomOne - 1][randomTwo] = true;
             gridFilled[randomOne - 2][randomTwo] = true;
             gridFilled[randomOne - 3][randomTwo] = true;
-            battleship = new Battleship(randomOne, randomTwo, randomOne-3, randomTwo, 4);
+            battleship = new Battleship(randomOne, randomTwo, randomOne-1, randomTwo, randomOne-2, randomTwo, randomOne-3, randomTwo, 4);
             break;
         case 2:
             gridFilled[randomOne][randomTwo + 1] = true;
             gridFilled[randomOne][randomTwo + 2] = true;
             gridFilled[randomOne][randomTwo + 3] = true;
-            battleship = new Battleship(randomOne, randomTwo, randomOne, randomTwo+3, 4);
+            battleship = new Battleship(randomOne, randomTwo, randomOne, randomTwo+1, randomOne, randomTwo+2, randomOne, randomTwo+3, 4);
             break;
         case 3:
             gridFilled[randomOne][randomTwo - 1] = true;
             gridFilled[randomOne][randomTwo - 2] = true;
             gridFilled[randomOne][randomTwo - 3] = true;
-            battleship = new Battleship(randomOne, randomTwo, randomOne, randomTwo-3, 4);
+            battleship = new Battleship(randomOne, randomTwo, randomOne, randomTwo-1, randomOne, randomTwo-2, randomOne, randomTwo-3, 4);
             break;
         }
         
@@ -418,28 +471,29 @@ public class Board extends JPanel{
             gridFilled[randomOne + 2][randomTwo] = true;
             gridFilled[randomOne + 3][randomTwo] = true;
             gridFilled[randomOne + 4][randomTwo] = true;
-            carrier = new Carrier(randomOne, randomTwo, randomOne+4, randomTwo, 5);
+            
+            carrier = new Carrier(randomOne, randomTwo, randomOne+1, randomTwo, randomOne+2, randomTwo, randomOne+3, randomTwo, randomOne+4, randomTwo, 5);
             break;
         case 1:
             gridFilled[randomOne - 1][randomTwo] = true;
             gridFilled[randomOne - 2][randomTwo] = true;
             gridFilled[randomOne - 3][randomTwo] = true;
             gridFilled[randomOne - 4][randomTwo] = true;
-            carrier = new Carrier(randomOne, randomTwo, randomOne-4, randomTwo, 5);
+            carrier = new Carrier(randomOne, randomTwo, randomOne-1, randomTwo, randomOne-2, randomTwo, randomOne-3, randomTwo, randomOne-4, randomTwo, 5);
             break;
         case 2:
             gridFilled[randomOne][randomTwo + 1] = true;
             gridFilled[randomOne][randomTwo + 2] = true;
             gridFilled[randomOne][randomTwo + 3] = true;
             gridFilled[randomOne][randomTwo + 4] = true;
-            carrier = new Carrier(randomOne, randomTwo, randomOne, randomTwo+4, 5);
+            carrier = new Carrier(randomOne, randomTwo, randomOne, randomTwo+1, randomOne, randomTwo+2, randomOne, randomTwo+3, randomOne, randomTwo+4, 5);
             break;
         case 3:
             gridFilled[randomOne][randomTwo - 1] = true;
             gridFilled[randomOne][randomTwo - 2] = true;
             gridFilled[randomOne][randomTwo - 3] = true;
             gridFilled[randomOne][randomTwo - 4] = true;
-            carrier = new Carrier(randomOne, randomTwo, randomOne, randomTwo-4, 5);
+            carrier = new Carrier(randomOne, randomTwo, randomOne, randomTwo-1, randomOne, randomTwo-2, randomOne, randomTwo-3, randomOne, randomTwo-4, 5);
             break;
         }
         

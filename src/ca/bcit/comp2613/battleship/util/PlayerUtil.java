@@ -13,7 +13,7 @@ public class PlayerUtil {
 	public void createPlayer() {
 		//need to tweak menu to link the players
 		ArrayList<Player>players = new ArrayList<>();
-		Player player = new Player(null,null,null,null,null, null);
+		Player player = new Player(null,null,null,null,null);
 		
 		players.add(player);
 	}

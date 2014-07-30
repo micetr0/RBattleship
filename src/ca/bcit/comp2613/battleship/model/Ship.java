@@ -83,6 +83,10 @@ public class Ship {
     public void setEndurance(Integer endurance) {
         this.endurance = endurance;
     }
+    
+    public void decrementEndurance() {
+        endurance--;
+    }
 
     @Override
     public String toString() {
