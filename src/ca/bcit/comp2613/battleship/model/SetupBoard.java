@@ -93,10 +93,14 @@ public class SetupBoard extends JPanel {
         f = new JFrame("BattleShip");
     }
     
+    /**
+     * Create tabbed panel on the bottom of setup grid.
+     * Each panel has textfields to show coordinates and an edit button to edit the textfields.
+     */
     public void createTabbedPanel() {
         JTabbedPane tabbedPane = new JTabbedPane();
         
-        //destroyer tab panel
+        //Creates the destroyer tab panel
         JPanel destroyerPanel = new JPanel(false);
         JLabel destroyerLabel = new JLabel("Destroyer");
         destroyerLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -287,6 +291,12 @@ public class SetupBoard extends JPanel {
 //        return panel;
 //    }
     
+    /**
+     * Creates edit button for each panel when called.
+     * Creates a start button on the main destroyer panel.
+     * @param shipType
+     * @return
+     */
     public JPanel createShipEdit(String shipType) {
         JPanel threePanel = new JPanel();
         if(shipType.equals("Destroyer")){
@@ -295,14 +305,19 @@ public class SetupBoard extends JPanel {
             final JButton edit = new JButton("Edit");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    //shipTypeTab selects which ship to edit.
                     shipTypeTab = 1;
+                    //zeroes the coordinates if they wanna re-edit the coordinates.
                     playerDestroyer.zeroCoordinates();
+                    
+                    //changes text on buttons back to nothing and filled to false.
                     if(destroyerShipCoordOne != null) {
                         setupGrid[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()].setText("");
                         setupGrid[destroyerShipCoordTwo.getxCoord()][destroyerShipCoordTwo.getyCoord()].setText("");
                         filled[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()] = false;
                         filled[destroyerShipCoordTwo.getxCoord()][destroyerShipCoordTwo.getyCoord()] = false;
                     }
+                    //sets textfields back to original.
                     textDestroyerCoordXOne.setText("X Coordinates");
                     textDestroyerCoordYOne.setText("Y Coordinates");
                     textDestroyerCoordXTwo.setText("X Coordinates");
@@ -310,6 +325,8 @@ public class SetupBoard extends JPanel {
                 }
             });
             destroyerPanel.add(edit);
+            
+            //start button to start game. Removes the start button once pressed.  
             final JButton startGame = new JButton("Start");
             startGame.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -321,6 +338,8 @@ public class SetupBoard extends JPanel {
             destroyerPanel.add(startGame);
             threePanel = destroyerPanel;
         }
+        
+        //same things as above, except for submarine panel.
         if(shipType.equals("Submarine")){
             JPanel submarinePanel = new JPanel(new FlowLayout());
             
@@ -358,6 +377,8 @@ public class SetupBoard extends JPanel {
             submarinePanel.add(edit);
             threePanel = submarinePanel;
         }
+        
+        //same things as above, except for battlehip panel.
         if(shipType.equals("Battleship")){
             JPanel battleshipPanel = new JPanel(new FlowLayout());
             
@@ -405,6 +426,8 @@ public class SetupBoard extends JPanel {
             battleshipPanel.add(edit);
             threePanel = battleshipPanel;
         }
+        
+        //same things as above, except for carrier panel.
         if(shipType.equals("Carrier")){
             JPanel carrierPanel = new JPanel(new FlowLayout());
             
@@ -463,7 +486,12 @@ public class SetupBoard extends JPanel {
         return threePanel;
     }
     
+    /**
+     * Starts game.
+     */
     public void startGame() {
+        
+        //checks to see if all ships have been placed.
         if( (playerDestroyer.getPositionX1() == null) || (playerSubmarine.getPositionX1() == null) || (playerBattleship.getPositionX1() == null) || (playerCarrier.getPositionX1() == null)) {
             System.out.println("Please place all ships");
         } else {
@@ -471,6 +499,8 @@ public class SetupBoard extends JPanel {
             JPanel holder = new JPanel();
             holder.setLayout(new BoxLayout(holder, BoxLayout.Y_AXIS));
             JPanel ctrlPanel = new JPanel();
+            
+            //Allows toggle to view your own ships.
             JButton viewSetup = new JButton("View Ships");
             viewSetup.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -495,9 +525,18 @@ public class SetupBoard extends JPanel {
         }
     }
     
+    /**
+     * Sets the ship coordinates for the player's ships.  
+     * Changes button text to "ship" when placed.  Creates ship objects once placed.
+     * Auto fills the space between two coordinates pressed with "ship".  
+     * Example: submarine takes 3 grids.  Press two different grids 1 distance apart.  Each button pressed will change text to "ship", the button in between will autofill.
+     * Makes sure you can't press a space that's already taken.
+     */
     public void setShipCoordinates() {
+        //checks to see if space is taken.
         if(filled[theShipCoord.getxCoord()][theShipCoord.getyCoord()] == false){
             if (shipTypeTab == 1) {
+                //checks if coordinates are null
                 if(playerDestroyer.getPositionX1() == null){
                     destroyerShipCoordOne = theShipCoord;
                     playerDestroyer.setPositionX1(destroyerShipCoordOne.getxCoord());
@@ -507,6 +546,7 @@ public class SetupBoard extends JPanel {
                     setupGrid[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()].setText("Ship");
                     filled[destroyerShipCoordOne.getxCoord()][destroyerShipCoordOne.getyCoord()] = true;
                 } else if (playerDestroyer.getPositionX2() == null) {
+                    //makes sure destroyer is placed on two grids side by side.
                     if( ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 1) )
                             || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == -1) )
                             || ( ((playerDestroyer.getPositionX1() - theShipCoord.getxCoord() ) == 1 ) && ((playerDestroyer.getPositionY1() - theShipCoord.getyCoord()) == 0) )
@@ -541,6 +581,7 @@ public class SetupBoard extends JPanel {
                     textSubmarineCoordYOne.setText(Integer.toString(submarineShipCoordOne.getyCoord()));
                     setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord()].setText("Ship");
                 } else if (playerSubmarine.getPositionX2() == null){
+                    //checks to make sure submarine takes up 3 grids in a row.
                     if( ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 2) )
                             || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 0 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == -2) )
                             || ( ((playerSubmarine.getPositionX1() - theShipCoord.getxCoord() ) == 2 ) && ((playerSubmarine.getPositionY1() - theShipCoord.getyCoord()) == 0) )
@@ -552,6 +593,8 @@ public class SetupBoard extends JPanel {
                         playerSubmarine.setPositionY3(submarineShipCoordTwo.getyCoord());
                         textSubmarineCoordYTwo.setText(Integer.toString(submarineShipCoordTwo.getyCoord()));
                         setupGrid[submarineShipCoordTwo.getxCoord()][submarineShipCoordTwo.getyCoord()].setText("Ship");
+                        
+                        //auto fill section
                         if ( (submarineShipCoordOne.getxCoord() == submarineShipCoordTwo.getxCoord())  &&  ( (submarineShipCoordOne.getyCoord() - submarineShipCoordTwo.getyCoord()) < 0 ) ) {
                             setupGrid[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() + 1].setText("Ship");
                             filled[submarineShipCoordOne.getxCoord()][submarineShipCoordOne.getyCoord() + 1] = true;
@@ -583,7 +626,7 @@ public class SetupBoard extends JPanel {
                     }
                     
                 }
-                //use theShipCoordinates to set ship coord
+                //reminder set ship coordinates
             }
             if (shipTypeTab == 3) {
                 if(playerBattleship.getPositionX1() == null){
@@ -655,7 +698,7 @@ public class SetupBoard extends JPanel {
                     }
                     
                 }
-                //use theShipCoordinates to set ship coord
+                //reminder: use theShipCoordinates to set ship coord
             }
             if (shipTypeTab == 4) {
                 if(playerCarrier.getPositionX1() == null){
@@ -749,6 +792,10 @@ public class SetupBoard extends JPanel {
         
     }
     
+    /**
+     * Create grid and buttons for setup.
+     * Add action listeners
+     */
     public void createSetupButtons() {
         setupGrid = new JButton[WIDTH][LENGTH];     
         filled = new boolean[WIDTH][LENGTH];
