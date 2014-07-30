@@ -117,13 +117,21 @@ public class Board extends JPanel{
 //        
 //    }
     
+    /**
+     * Computer's turn.  Randomly picks two integers between 1-10. 
+     * Check's if it's been selected before.  If it has, randomize until one that hasn't.
+     */
     public void compMove() {
         int compMoveOne = rand.nextInt(10) + 1;
         int compMoveTwo = rand.nextInt(10) + 1;
+        
+        //Loop until one that hasn't been selected
         while (compSelected[compMoveOne][compMoveTwo] == true) {
             compMoveOne = rand.nextInt(10) + 1;
             compMoveTwo = rand.nextInt(10) + 1;
         }
+        
+        //mark as hit or miss.
         compSelected[compMoveOne][compMoveTwo] = true;
         if (compGrid[compMoveOne][compMoveTwo] == true) {
             compHit++;
@@ -133,13 +141,18 @@ public class Board extends JPanel{
             compMiss++;
             checkPlayerShipCoordinates(compMoveOne,compMoveTwo);
         }
-        //check if comp hit all player's ship.  All compGrid == compSelected.  means computer finished.
+        
+        //checks if computer has won after every move
         checkCompWin();
         if (gameEnd == true) {
             gameEnd();
+            SetupBoard.dispose();
         }
     }
     
+    /**
+     * If endurance of all ships reach zero.  Set game end as true as well compWin as true.
+     */
     public void checkCompWin() {
         if(playerDestroyer.getEndurance() == 0 && playerSubmarine.getEndurance() == 0 && playerBattleship.getEndurance() == 0  && playerCarrier.getEndurance() == 0) {
             gameEnd = true;
@@ -147,6 +160,9 @@ public class Board extends JPanel{
         }
     }
     
+    /**
+     * If endurance of all ships reach zero.  Set game end as true as well as playerWin as true.
+     */
     public void checkPlayerWin() {
         if(destroyer.getEndurance() == 0 && submarine.getEndurance() == 0 && battleship.getEndurance() == 0  && carrier.getEndurance() == 0) {
             gameEnd = true;
@@ -154,6 +170,11 @@ public class Board extends JPanel{
         }
     }
     
+    /**
+     * Checks which ship has been hit.  Decreases it's endurance.
+     * @param x
+     * @param y
+     */
     public void checkPlayerShipCoordinates(int x, int y) {
         if( (x == playerDestroyer.getPositionX1() && y == playerDestroyer.getPositionY1()) || (x == playerDestroyer.getPositionX2() && y == playerDestroyer.getPositionY2()) ) {
             playerDestroyer.decrementEndurance();
@@ -169,6 +190,11 @@ public class Board extends JPanel{
         }
     }
     
+    /**
+     * Checks which ship has been hit.  Decreases it's endurance.
+     * @param x
+     * @param y
+     */
     public void checkShipCoordinates(int x, int y) {
         if( (x == destroyer.getPositionX1() && y == destroyer.getPositionY1()) || (x == destroyer.getPositionX2() && y == destroyer.getPositionY2()) ) {
             destroyer.decrementEndurance();
@@ -184,6 +210,9 @@ public class Board extends JPanel{
         }
     }
     
+    /**
+     * Creates the buttons for the board.  Sets action listeners for all the buttons.
+     */
     public void createButtons() {
         grid = new JButton[WIDTH][LENGTH];   
         gridFilled = new boolean[WIDTH][LENGTH];
@@ -191,6 +220,7 @@ public class Board extends JPanel{
         compSelected = new boolean[WIDTH][LENGTH];
         for(int i = 0; i < LENGTH; i++){
             for(int j = 0; j < WIDTH; j++){
+                //set the boarder buttons to do nothing with just numbers.
                 if(i == 0){
                     clicked[j][i] = false;
                     compSelected[j][i] = false;
@@ -204,6 +234,7 @@ public class Board extends JPanel{
                     grid[j][i] = new JButton(""+i);
                     add(grid[j][i]);
                 } else {
+                    //set the buttons with empty strings.  
                     clicked[j][i] = false;
                     compSelected[j][i] = false;
                     gridFilled[j][i] = false;
@@ -220,26 +251,28 @@ public class Board extends JPanel{
                                 if (gridFilled[tempJ][tempI] == true) {
                                     hit++;
                                     grid[tempJ][tempI].setText("*");
-                                    compMove();
                                     turn++;
                                     checkShipCoordinates(tempJ, tempI);
                                 } else {
                                     miss++;
                                     grid[tempJ][tempI].setText("X");
-                                    compMove();
                                     turn++;
                                     checkShipCoordinates(tempJ, tempI);
                                 }
                             } else {
                                 System.out.println("You have already checked this grid");
                             }
-                            //run check if all ships are hit. all gridFilled == clicked.  means player finished.  
+                            
+                            //check if player has won after every move.                            
                             checkPlayerWin();
                             System.out.println(gameEnd);
                             if(gameEnd == true) {
                                 gameEnd();
                                 SetupBoard.dispose();
+                            } else {
+                                compMove();
                             }
+                            
                         }
                     });
                 }
