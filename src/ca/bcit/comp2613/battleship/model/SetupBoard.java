@@ -62,6 +62,8 @@ public class SetupBoard extends JPanel {
     private JTextField textCarrierCoordXTwo;
     private JTextField textCarrierCoordYTwo;
     
+    private static JFrame f;
+    
     public SetupBoard() {
         //setSize(850, 1000);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -88,6 +90,7 @@ public class SetupBoard extends JPanel {
         //playerBattleship.zeroCoordinates();
         playerCarrier = new Carrier(null, null, null, null, null, null, null, null, null, null, 5);
         //playerCarrier.zeroCoordinates();
+        f = new JFrame("BattleShip");
     }
     
     public void createTabbedPanel() {
@@ -480,7 +483,7 @@ public class SetupBoard extends JPanel {
             });
             ctrlPanel.setSize(600, 100);
             ctrlPanel.add(viewSetup);
-            JFrame f = new JFrame("BattleShip");
+            
             holder.add(board);
             holder.add(ctrlPanel);
             f.setSize(600, 700);
@@ -813,6 +816,9 @@ public class SetupBoard extends JPanel {
         this.playerCarrier = playerCarrier;
     }
     
+    public static void dispose() {
+        f.dispose();
+    }
     
     
 }

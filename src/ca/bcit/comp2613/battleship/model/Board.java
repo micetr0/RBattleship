@@ -238,6 +238,7 @@ public class Board extends JPanel{
                             System.out.println(gameEnd);
                             if(gameEnd == true) {
                                 gameEnd();
+                                SetupBoard.dispose();
                             }
                         }
                     });
@@ -249,7 +250,7 @@ public class Board extends JPanel{
     
     public void gameEnd() {
         System.out.println("game end method");
-        JFrame endGame = new JFrame("test");
+        JFrame endGame = new JFrame("Results!");
         endGame.setSize(250,250);
         endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         endGame.setVisible(true);
