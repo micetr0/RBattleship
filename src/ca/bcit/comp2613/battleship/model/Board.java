@@ -278,9 +278,11 @@ public class Board extends JPanel{
                 }
             }
         }
-        System.out.println(Arrays.equals(clicked, gridFilled));
     }
     
+    /**
+     * Creates new frame for results of the game.
+     */
     public void gameEnd() {
         System.out.println("game end method");
         JFrame endGame = new JFrame("Results!");
@@ -301,6 +303,13 @@ public class Board extends JPanel{
         
     }
     
+    /**
+     * Makes sure destroyer doesn't go out of bound.
+     * @param x
+     * @param y
+     * @param direction
+     * @return
+     */
     public int checkBorderDestroyer(int x, int y, int direction) {
         int result;
         while (x == 10 && direction == 0) {
@@ -343,6 +352,15 @@ public class Board extends JPanel{
         return result;
     }
     
+    /**
+     * Makes sure other ships don't go out of bounds.
+     * @param x
+     * @param y
+     * @param direction
+     * @param maxValue
+     * @param minValue
+     * @return
+     */
     public int checkBorderShips(int x, int y, int direction, int maxValue, int minValue) {
         int result;
         while (x > maxValue && direction == 0) {
@@ -385,15 +403,24 @@ public class Board extends JPanel{
         return result;
     }
     
+    /**
+     * Place computer ships at random locations on board.
+     */
     public void placeCompShips() {
+        //Randomize the location.  randomOne represents x coordinates, randomTwo y coordinates.  Direction is which direction to go (up down left right).
         int randomOne = rand.nextInt(10) + 1;
         int randomTwo = rand.nextInt(10) + 1;
         int direction = rand.nextInt(3);
-        //destroyer comp
+        
+        //Place computer destroyer
         gridFilled[randomOne][randomTwo] = true;
         
         direction = checkBorderDestroyer(randomOne, randomTwo, direction);
-        System.out.println(randomOne + " " + randomTwo + " " + direction);
+        
+        //debugging use
+//        System.out.println(randomOne + " " + randomTwo + " " + direction);
+        
+        
 //        while (randomOne == 10 && direction == 0) {
 //            direction = rand.nextInt(3);
 //            while(randomTwo == 0 && direction == 3) {
@@ -404,6 +431,7 @@ public class Board extends JPanel{
 //            }
 //        }
         
+        //checks which direction it's going and creates an object with those coordinates
         switch (direction){
         case 0: 
             gridFilled[randomOne + 1][randomTwo] = true;
@@ -423,7 +451,7 @@ public class Board extends JPanel{
             break;
         }
         
-        //submarine comp
+        //Place computer submarine
         while(gridFilled[randomOne][randomTwo] == true){
             randomOne = rand.nextInt(10) + 1;
             randomTwo = rand.nextInt(10) + 1;
@@ -432,7 +460,9 @@ public class Board extends JPanel{
         gridFilled[randomOne][randomTwo] = true;
         
         direction = checkBorderShips(randomOne, randomTwo, direction, 8, 3);
-        System.out.println(randomOne + " " + randomTwo + " " + direction);
+        
+        //for debugging use
+        //System.out.println(randomOne + " " + randomTwo + " " + direction);
         
         switch (direction){
         case 0: 
@@ -457,7 +487,7 @@ public class Board extends JPanel{
             break;
         }
         
-        //battleship comp
+        //Place comp battleship
         while(gridFilled[randomOne][randomTwo] == true){
             randomOne = rand.nextInt(10) + 1;
             randomTwo = rand.nextInt(10) + 1;
@@ -466,7 +496,9 @@ public class Board extends JPanel{
         gridFilled[randomOne][randomTwo] = true;
         
         direction = checkBorderShips(randomOne, randomTwo, direction, 7, 4);
-        System.out.println(randomOne + " " + randomTwo + " " + direction);
+        
+        //for debugging use
+        //System.out.println(randomOne + " " + randomTwo + " " + direction);
         
         switch (direction){
         case 0: 
@@ -495,7 +527,7 @@ public class Board extends JPanel{
             break;
         }
         
-        //carrier comp
+        //Place comp Carrier
         while(gridFilled[randomOne][randomTwo] == true){
             randomOne = rand.nextInt(10) + 1;
             randomTwo = rand.nextInt(10) + 1;
@@ -503,7 +535,9 @@ public class Board extends JPanel{
         }
         gridFilled[randomOne][randomTwo] = true;
         direction = checkBorderShips(randomOne, randomTwo, direction, 6, 5);
-        System.out.println(randomOne + " " + randomTwo + " " + direction);
+        
+        //debugging use.
+        //System.out.println(randomOne + " " + randomTwo + " " + direction);
         
         switch (direction){
         case 0: 
@@ -539,6 +573,9 @@ public class Board extends JPanel{
         
     }
     
+    /**
+     * Create board for computer to play on.
+     */
     public void computerSetup() {
         compGrid = new boolean[WIDTH][LENGTH];
         compGrid = SetupBoard.getFilled();
