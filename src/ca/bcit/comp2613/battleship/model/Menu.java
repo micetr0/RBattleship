@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.BoxLayout;
+
 
 import ca.bcit.comp2613.battleship.BattleShip;
 
@@ -19,16 +21,17 @@ public class Menu extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField fullName;
+	private JTextField firstName;
+	private JTextField lastName;
     private JButton submit;
     private JPanel pane;
     //Score panel
     private JLabel topScore;
-    private JPanel pane2;
+    
         
     public Menu() {
         pane = new JPanel();
-        pane.setLayout(new FlowLayout());
+        pane.setLayout(new BoxLayout(pane,BoxLayout.Y_AXIS));
         setSize(400,200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         textFieldButtons();
@@ -36,19 +39,21 @@ public class Menu extends JFrame {
         setVisible(true);
         
         //JPanel score menu
-        pane2 = new JPanel();
-    	setSize(400,400);
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     	ScoreListing();
-    	add(pane2);
-    	setVisible(true);
+
      }
     
     
     public void textFieldButtons(){
-        fullName = new JTextField("Input full name");
-        fullName.setColumns(10);
-        pane.add(fullName);
+        firstName = new JTextField("Input first name");
+        firstName.setColumns(10);
+        pane.add(firstName);
+        
+        lastName = new JTextField("Input last name");
+        lastName.setColumns(10);
+        pane.add(lastName);
+        
         submit = new JButton("Submit");
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,7 +65,9 @@ public class Menu extends JFrame {
     }
     
     public void submit() {
-        String theFullName = fullName.getText();
+        String theFirstName = firstName.getText();
+        String theLastName = lastName.getText();
+        Player player = new Player(theFirstName,theLastName, null,null,null);
         //code to save name
         //code to link to next screen
         //dispose()
@@ -85,7 +92,7 @@ public class Menu extends JFrame {
     
     public void ScoreListing(){
         topScore = new JLabel("Top Score:");
-        pane2.add (topScore);
+        pane.add (topScore);
         
     }
 }

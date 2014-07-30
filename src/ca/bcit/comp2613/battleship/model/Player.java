@@ -19,26 +19,29 @@ import org.hibernate.annotations.FetchMode;
 public class Player {
 
 	@Id
-	private String id;
+	private int id;
+	private static int count = 1;
 	private String firstName;
 	private String lastName;
 	private Integer score;
 	private Integer hitRatio;
 	private Integer missRatio;
+	
 
 	private Player() {
 
 	}
 
-	public Player(String id, String firstName, String lastName, Integer score,
+	public Player(String firstName, String lastName, Integer score,
 			Integer hitRatio, Integer missRatio) {
 		super();
-		this.id = id;
+		id = count;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.score = score;
 		this.hitRatio = hitRatio;
 		this.missRatio = missRatio;
+		count++;
 	}
 
 	public String getId() {

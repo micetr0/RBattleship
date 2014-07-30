@@ -11,10 +11,12 @@ import ca.bcit.comp2613.battleship.model.Menu;
 public class PlayerUtil {
 	
 	public void createPlayer() {
-		//need to tweak menu 
+		//need to tweak menu to link the players
+		ArrayList<Player>players = new ArrayList<>();
 		Player player = new Player(null,null,null,null,null, null);
+		
+		players.add(player);
 	}
-
 }
 
 

@@ -165,10 +165,12 @@ public class Board extends JPanel{
                                 hit++;
                                 grid[tempJ][tempI].setText("*");
                                 compMove();
+                                turn++;
                             } else {
                                 miss++;
                                 grid[tempJ][tempI].setText("X");
                                 compMove();
+                                turn++;
                             }
                         } else {
                             System.out.println("You have already checked this grid");
