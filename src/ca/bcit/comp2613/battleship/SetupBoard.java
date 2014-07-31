@@ -1,4 +1,4 @@
-package ca.bcit.comp2613.battleship.model;
+package ca.bcit.comp2613.battleship;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -13,6 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
+
+import ca.bcit.comp2613.battleship.model.Battleship;
+import ca.bcit.comp2613.battleship.model.Carrier;
+import ca.bcit.comp2613.battleship.model.Coordinates;
+import ca.bcit.comp2613.battleship.model.Destroyer;
+import ca.bcit.comp2613.battleship.model.Submarine;
 
 public class SetupBoard extends JPanel {
     
@@ -302,7 +308,7 @@ public class SetupBoard extends JPanel {
         if(shipType.equals("Destroyer")){
             final JPanel destroyerPanel = new JPanel(new FlowLayout());
             
-            final JButton edit = new JButton("Edit");
+            final JButton edit = new JButton("Place Ships");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     //shipTypeTab selects which ship to edit.
@@ -343,7 +349,7 @@ public class SetupBoard extends JPanel {
         if(shipType.equals("Submarine")){
             JPanel submarinePanel = new JPanel(new FlowLayout());
             
-            JButton edit = new JButton("Edit");
+            JButton edit = new JButton("Place Ships");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 2;
@@ -382,7 +388,7 @@ public class SetupBoard extends JPanel {
         if(shipType.equals("Battleship")){
             JPanel battleshipPanel = new JPanel(new FlowLayout());
             
-            JButton edit = new JButton("Edit");
+            JButton edit = new JButton("Place Ships");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 3;
@@ -431,7 +437,7 @@ public class SetupBoard extends JPanel {
         if(shipType.equals("Carrier")){
             JPanel carrierPanel = new JPanel(new FlowLayout());
             
-            JButton edit = new JButton("Edit");
+            JButton edit = new JButton("Place Ships");
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     shipTypeTab = 4;

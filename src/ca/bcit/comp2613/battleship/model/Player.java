@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
@@ -19,14 +20,16 @@ import org.hibernate.annotations.FetchMode;
 public class Player {
 
 	@Id
-	private int id;
+	private String id;
 	private static int count = 1;
 	private String firstName;
 	private String lastName;
-	private Integer score;
-	private Integer hitRatio;
-	private Integer missRatio;
+	private float score;
+	private float hitRatio;
+	private float missRatio;
 	
+	@ManyToOne
+	private ScoreBoard scoreboard;
 
 	@SuppressWarnings("unused")
 	private Player() {
@@ -35,7 +38,7 @@ public class Player {
 
 	public Player(Integer score, Integer hitRatio, Integer missRatio, String firstName, String lastName) {
 		super();
-		id = count;
+		id = Integer.toString(count);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.score = score;
@@ -45,11 +48,11 @@ public class Player {
 	}
 	
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -69,27 +72,27 @@ public class Player {
 		this.lastName = lastName;
 	}
 	
-	public Integer getScore() {
+	public float getScore() {
 		return score;
 	}
 
-	public void setScore(Integer score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 
-	public Integer getHitRatio() {
+	public float getHitRatio() {
 		return hitRatio;
 	}
 
-	public void setHitRatio(Integer hitRatio) {
+	public void setHitRatio(float hitRatio) {
 		this.hitRatio = hitRatio;
 	}
 
-	public Integer getMissRatio() {
+	public float getMissRatio() {
 		return missRatio;
 	}
 
-	public void setMissRatio(Integer missRatio) {
+	public void setMissRatio(float missRatio) {
 		this.missRatio = missRatio;
 	}
 

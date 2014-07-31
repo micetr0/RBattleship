@@ -5,13 +5,13 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import ca.bcit.comp2613.battleship.model.Board;
-import ca.bcit.comp2613.battleship.model.Menu;
-import ca.bcit.comp2613.battleship.model.SetupBoard;
+import org.springframework.boot.SpringApplication;
 
 public class BattleShip {
 
     public static void main(String[] args) {
+    	
+    	
      
       Menu menu = new Menu();
       }

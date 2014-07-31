@@ -6,17 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+import ca.bcit.comp2613.battleship.Board;
+
 public class Ship {
     
-    @Id
     public String id;
     private Integer positionX1;
     private Integer positionX2;
     private Integer positionY1;
     private Integer positionY2;
     private Integer endurance;
-    @ManyToOne
+    
     private Board board;
     Random rand = new Random();
     

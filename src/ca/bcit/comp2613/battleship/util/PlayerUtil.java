@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import ca.bcit.comp2613.battleship.Menu;
 import ca.bcit.comp2613.battleship.model.Player;
-import ca.bcit.comp2613.battleship.model.Menu;
 
 
 public class PlayerUtil {

@@ -1,4 +1,4 @@
-package ca.bcit.comp2613.battleship.model;
+package ca.bcit.comp2613.battleship;
 
 import java.awt.FlowLayout;
 
@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 
-
-import ca.bcit.comp2613.battleship.BattleShip;
+import ca.bcit.comp2613.battleship.model.Player;
+import ca.bcit.comp2613.battleship.model.ScoreBoard;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,8 +26,10 @@ public class Menu extends JFrame {
     private JButton submit;
     private JPanel pane;
     //Score panel
-    private JLabel topScore;
+    private JButton topScore;
     private static JFrame f;
+    private static Player player;
+    private static ScoreBoard scoreboard;
     
         
     public Menu() {
@@ -69,7 +71,7 @@ public class Menu extends JFrame {
     public void submit() {
         String theFirstName = firstName.getText();
         String theLastName = lastName.getText();
-        Player player = new Player(theFirstName,theLastName, null,null,null);
+        player = new Player(0,0,0, theFirstName, theLastName);
         //code to save name
         //code to link to next screen
         //dispose()
@@ -92,8 +94,14 @@ public class Menu extends JFrame {
     }
     
     public void ScoreListing(){
-        topScore = new JLabel("Top Score:");
-        pane.add (topScore);
+//        topScore = new JButton("Top Score:");
+//        topScore.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				scoreboard = new ScoreBoard();
+//				System.out.println("hi");
+//			}
+//		});
+//        pane.add(topScore);
         
     }
     
@@ -107,5 +115,27 @@ public class Menu extends JFrame {
         result = f.isVisible();
         return result;
     }
+
+
+	public static Player getPlayer() {
+		return player;
+	}
+
+
+	public static void setPlayer(Player player) {
+		Menu.player = player;
+	}
+
+
+	public static ScoreBoard getScoreboard() {
+		return scoreboard;
+	}
+
+
+	public static void setScoreboard(ScoreBoard scoreboard) {
+		Menu.scoreboard = scoreboard;
+	}
+    
+	
     
 }

@@ -1,13 +1,19 @@
-package ca.bcit.comp2613.battleship.model;
+package ca.bcit.comp2613.battleship;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+
+import javax.swing.BoxLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.swing.JButton;
@@ -15,10 +21,23 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-@Entity
+import ca.bcit.comp2613.battleship.model.Battleship;
+import ca.bcit.comp2613.battleship.model.Carrier;
+import ca.bcit.comp2613.battleship.model.Destroyer;
+import ca.bcit.comp2613.battleship.model.Player;
+import ca.bcit.comp2613.battleship.model.ScoreBoard;
+import ca.bcit.comp2613.battleship.model.Ship;
+import ca.bcit.comp2613.battleship.model.Submarine;
+import ca.bcit.comp2613.battleship.repository.PlayerRepository;
+import ca.bcit.comp2613.battleship.repository.ScoreBoardRepository;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ImportResource;
+
 public class Board extends JPanel{
     
-    @Id
     private static final long serialVersionUID = 1L;
     //variable that will have multiple ship many to many relationship
     private JButton[][] grid;
@@ -46,7 +65,7 @@ public class Board extends JPanel{
     
     private int turn;
     
-    private int score;
+    private float score;
     
 //    score = total hit + total miss + turn bonus
 //
@@ -58,18 +77,31 @@ public class Board extends JPanel{
 //    		< 40 turns + 50
 //    		< 60 turns + 0
     			
-    private int miss;
-    private int hit;
-    private int compMiss;
-    private int compHit;
+    private float miss;
+    private float hit;
+    private float compMiss;
+    private float compHit;
+    public static ConfigurableApplicationContext context;
+    private PlayerRepository playerRepository;
+   // private ScoreBoardRepository scoreBoardRepository;
+    private ScoreBoard scoreboard;
+    private Player player;
     
     Random rand = new Random();
     
-    
-    @OneToMany
     private List < Ship > ships;
-        
+    
+    
     public Board() {
+    	context = SpringApplication.run(H2Config.class);
+    	playerRepository = context.getBean(PlayerRepository.class);
+//    	ScoreBoard scoreBoardRepository = context.getBean(ScoreBoard.class);
+//    	scoreboard = new ScoreBoard();
+    	
+    	
+    	EntityManagerFactory emf = (EntityManagerFactory) context
+				.getBean("entityManagerFactory");
+    	
         setLayout(new GridLayout(WIDTH, LENGTH));
         setSize(600,600);
         //added init score
@@ -77,6 +109,7 @@ public class Board extends JPanel{
         playerSubmarine = SetupBoard.getPlayerSubmarine();
         playerBattleship = SetupBoard.getPlayerBattleship();
         playerCarrier = SetupBoard.getPlayerCarrier();
+        
         score = 0;
         turn = 0;
         gameEnd = false;
@@ -286,20 +319,59 @@ public class Board extends JPanel{
     public void gameEnd() {
         System.out.println("game end method");
         JFrame endGame = new JFrame("Results!");
+        int bonus;
+        int temp;
+        if(turn < 21) {
+        	bonus = 60;
+        } else if (21 < turn && turn < 41) {
+        	bonus = 40;
+        } else {
+        	bonus = 20;
+        }
+        score = (hit*10) + (miss*5) + bonus;
+        
         endGame.setSize(250,250);
         endGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         endGame.setVisible(true);
         JPanel end = new JPanel();
+        end.setLayout(new FlowLayout());
         JLabel winner = new JLabel("");
+        JLabel totalScore = new JLabel("Score: ");
+        JLabel percentageHit = new JLabel("");
+        JLabel percentageMiss = new JLabel("");
+        float hitPercentage;
+        float missPercentage;
         if(playerWin == true) {
-            winner.setText("You Win!");
+            winner.setText("You Win!  |   ");
+            totalScore.setText("Score: " + score + "   |   ");
+            hitPercentage = (hit / (hit + miss)) * 100;
+            missPercentage = (miss / (hit + miss)) * 100;
+            System.out.println(miss + " " + hit + " " + missPercentage + " " + hitPercentage);
+            percentageHit.setText("% Hit: " + hitPercentage + "%    |   ");
+            percentageMiss.setText("% Miss: " + missPercentage + "%");
         }
         if(compWin == true) {
             winner.setText("You Lose!");
+            totalScore.setText("Score: " + score + "   |   ");
+            hitPercentage = (hit / (hit + miss)) * 100;
+            missPercentage = (miss / (hit + miss)) * 100;
+            System.out.println(miss + " " + hit + " " + missPercentage + " " + hitPercentage);
+            percentageHit.setText("% Hit: " + hitPercentage + "%    |   ");
+            percentageMiss.setText("% Miss: " + missPercentage + "%");
         }
         end.add(winner);
-        
+        end.add(totalScore);
+        end.add(percentageHit);
+        end.add(percentageMiss);
         endGame.add(end);
+        
+        player = Menu.getPlayer();
+        player.setScore(score);
+        player.setHitRatio(hit / (hit + miss));
+        player.setMissRatio(miss / (hit + miss));
+        playerRepository.save(player);
+ //       scoreboard = Menu.getScoreboard();
+ //       scoreBoardRepository.save(scoreboard);
         
     }
     

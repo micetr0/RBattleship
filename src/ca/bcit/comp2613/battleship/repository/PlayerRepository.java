@@ -8,6 +8,6 @@ import ca.bcit.comp2613.battleship.model.Player;
 
 public interface PlayerRepository extends CrudRepository<Player, String> {
 	
-	List<Player> findByLastName(String lastName);
+	
 
 }
