@@ -86,7 +86,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>ca.bcit.comp2613.battleships.TestDriverWithMySQL</mainClass>
+                            <mainClass>ca.bcit.comp2613.battleship.BattleShip</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
