@@ -28,12 +28,12 @@ public class Player {
 	private Integer missRatio;
 	
 
+	@SuppressWarnings("unused")
 	private Player() {
 
 	}
 
-	public Player(String firstName, String lastName, Integer score,
-			Integer hitRatio, Integer missRatio) {
+	public Player(Integer score, Integer hitRatio, Integer missRatio, String firstName, String lastName) {
 		super();
 		id = count;
 		this.firstName = firstName;
@@ -43,6 +43,7 @@ public class Player {
 		this.missRatio = missRatio;
 		count++;
 	}
+	
 
 	public int getId() {
 		return id;
